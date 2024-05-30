@@ -6,14 +6,11 @@ What is the sign displayed at first terminal login?
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 Package manager			
-ubuntu/mint -- apt	
-
+ubuntu/mint -- apt, snapd, flatpak, software center.
+Debian - apt,aptitude, snap, flatpak,apt-get,apt-cache
 centos/rocky linux -- dnf , yum		
-
 fedora - yum, dnf		
-
 arch - pamac, yay, paru,, flatpak		
-
 ----------------------------------------------------------------------------------------------------------------------------------------
 Command Accesibility (to get details about commands)
 
@@ -21,7 +18,6 @@ Command Accesibility (to get details about commands)
 info    ->  it provides detailed hyperlinked documentations. The pages are organized into chapters and sections. 
 whatis  ->  will display one line summary of the purpose of the command. It can be very helpful when we want the description of the command without going into the detailed syntax or options. 
 man     ->  short of "Manual", provdies the standartd reference documentation 
-
 ----------------------------------------------------------------------------------------------------------------------------------------
 User Group and Management
 
@@ -83,11 +79,25 @@ usermod -s /bin/bash username                  ==> to change users login shell.
 
 usermod -L username                            ==> to lock or disable the user account     
 
+usermod -l new_name existing_username          ==> to change the username.
+
+usermod -d /new/home/directory                ==>  To change users Home directory
+
+usermod -L username  or usermod -U username   ==> to lock the user. 
+
+usermod -e YYYY-MM-DD username                ==> to set the expire date
+
+usermod -s /path/to/new/shell username        ==> to change user's shell
+
+usermod -p passord_expire_days username      ==> to set or change the user's password expire date information. 
 
 
 
 DNS:
-dig 
+
+dig == Domain information Groper - a troubleshooting tool in linux and Unix-like operating system. It is used to perform DNS lookups and analyze the responses.
+
+
 nslookup
 host
 
