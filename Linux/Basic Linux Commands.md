@@ -35,7 +35,7 @@ awk => widely used for data manipulations and extractions.
 sed => can be used for finding and replacing operations, deleting or adding lines and more. 
 
 chage
--I  ==> inactive,       
+-I  ==> inactive,    
 -d  ==> last date       chage -d 2023-12-12 <username>      , last password change date
 -E  ==> Expire date     chage -E 2024-05-31 <username>
 -l  ==> list            chage -l <username>
@@ -45,6 +45,7 @@ chage
 
 usermod
 usermod -a -G group1,group2 username           ==> Add user to groups
+
 usermod -G group1,group2 username              ==> remote users from all group except the primary group.
 usermod -g <new group name> username           ==> to change user's primary group
 usermod -s /bin/bash username                  ==> to change users login shell.
