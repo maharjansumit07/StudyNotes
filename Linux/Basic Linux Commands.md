@@ -28,9 +28,9 @@ groups => to manage user groups. Groups are collections of users that share perm
 usermod => to modify user account properties, such as primary group, login shell,, home directory and other settings. 
 chage  => to manage user account password and aging information .
 chfn  => change User information 
-chsh  => to change user's default login shell. the login shell is the program that is executed when a suers logs in to the system.
-getent  => used to retrieve information about users, groups, hosts, networks, protocols, services, and other database entires. Basically, it get entries from Name service switch libraries.
-cut => a powerful tool to extract specific field or columns from input text data, commonly used in shell scripts and command line operations to manipulate data. 
+chsh  => to change user's default login shell. the login shell is the program that is executed when a user logs in to the system.
+getent  => used to retrieve information about users, groups, hosts, networks, protocols, services, and other database entries. It gets entries from Name service switch libraries.
+cut => a powerful tool to extract specific fields or columns from input text data, commonly used in shell scripts and command line operations to manipulate data. 
 awk => widely used for data manipulations and extractions. 
 sed => can be used for finding and replacing operations, deleting or adding lines and more. 
 
