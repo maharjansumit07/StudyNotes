@@ -83,3 +83,20 @@ usermod -s /bin/bash username                  ==> to change users login shell.
 
 usermod -L username                            ==> to lock or disable the user account     
 
+
+
+
+DNS:
+dig 
+nslookup
+host
+
+host -C google.com   ==> to display the nameservers IP and SOA record
+
+host -d sumaharjan.com  ==> to display nameservers and MX record.
+
+
+
+
+
+
