@@ -6,9 +6,13 @@ What is the sign displayed at first terminal login?
 
 Package manager
 ubuntu/mint -- apt
+
 centos/rocky linux -- dnf , yum
-fedora - yum
+
+fedora - yum, dnf
+
 arch - pamac, yay, paru,, flatpak
+
 
 Command Accesibility (to get details about commands)
 
