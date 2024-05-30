@@ -126,6 +126,8 @@ vi
 Nano
 gedit
 cat
+less
+more
 grep
 egrep
 rm
@@ -133,10 +135,17 @@ mkdir
 rmdir
 cd
 cp
+scp
 mv
 history
 whereis
 find 
+hard link
+soft link
+
+mount
+
+
 
 Managing ownership and permissions in files and directory
 chown
