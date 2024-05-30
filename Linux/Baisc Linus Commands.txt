@@ -12,6 +12,32 @@ centos/rocky linux -- dnf , yum
 fedora - yum, dnf		
 arch - pamac, yay, paru,, flatpak		
 ----------------------------------------------------------------------------------------------------------------------------------------
+File And Direcotry Management
+pwd =>
+ls =>
+vi
+Nano
+gedit
+cat
+less
+more
+grep
+egrep
+rm
+mkdir
+rmdir
+cd
+cp
+scp
+mv
+history
+whereis
+find 
+hard link
+soft link
+file permissions
+
+=========================================================================================================================================
 Command Accesibility (to get details about commands)
 
 --help or /h  -> to learn about the commands , usually used after the command to get more detail.
@@ -25,6 +51,10 @@ Whoami => to view the active user using the shell.
 
 su  => switch user
 
+Chown
+
+chmod
+
 useradd  => to add users.
 
 groupadd => to add group
@@ -34,6 +64,8 @@ passwd  => to change password.
 groups => to manage user groups. Groups are collections of users that share permissions and access rights. 
 
 usermod => to modify user account properties, such as primary group, login shell,, home directory and other settings. 
+
+groupmod
 
 chage  => to manage user account password and aging information .
 
@@ -105,43 +137,19 @@ dig +nssearch example.com.np		==> to display primary and secondary name servers 
 dig SOA example.com.np @ns1.example.com		==> to retrieve SOA recrod from the specific name server. 
 dig +trace www.example.com
 dig +yaml www.example.com
-_______________________________________________________________________________________________________________________________________
 
 
 nslookup
 
-_______________________________________________________________________________________________________________________________________
-host
 
+host:
 host -C google.com   ==> to display the nameservers IP and SOA record
 
 host -d sumaharjan.com  ==> to display nameservers and MX record.
 
 =========================================================================================================================================
 
-File And Direcotry Management
-pwd =>
-ls =>
-vi
-Nano
-gedit
-cat
-less
-more
-grep
-egrep
-rm
-mkdir
-rmdir
-cd
-cp
-scp
-mv
-history
-whereis
-find 
-hard link
-soft link
+
 
 mount
 
