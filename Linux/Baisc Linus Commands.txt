@@ -66,8 +66,7 @@ change
 
 -W  ==> warning day. ==>   chage -W 7 username
 
-
-usermod
+===================================================================================================================================
 
 usermod -a -G group1,group2 username           ==> Add user to groups
 
@@ -91,19 +90,209 @@ usermod -s /path/to/new/shell username        ==> to change user's shell
 
 usermod -p passord_expire_days username      ==> to set or change the user's password expire date information. 
 
-
+====================================================================================================================================
 
 DNS:
 
 dig == Domain information Groper - a troubleshooting tool in linux and Unix-like operating system. It is used to perform DNS lookups and analyze the responses.
+dig www.example.com.np
+dig -x IP-ADDRESS 			==> to find out the Name server PTR (Pointer Record).
+dig @8.8.8.8 example.com.np
+dig example.com.np A
+dig example.com.np MX
+dig SOA +multiline example.com.np
+dig +nssearch example.com.np		==> to display primary and secondary name servers with IP address.
+dig SOA example.com.np @ns1.example.com		==> to retrieve SOA recrod from the specific name server. 
+dig +trace www.example.com
+dig +yaml www.example.com
+_______________________________________________________________________________________________________________________________________
 
 
 nslookup
+
+_______________________________________________________________________________________________________________________________________
 host
 
 host -C google.com   ==> to display the nameservers IP and SOA record
 
 host -d sumaharjan.com  ==> to display nameservers and MX record.
+
+=========================================================================================================================================
+
+File And Direcotry Management
+pwd =>
+ls =>
+vi
+Nano
+gedit
+cat
+grep
+egrep
+rm
+mkdir
+rmdir
+cd
+cp
+mv
+history
+whereis
+find 
+
+Managing ownership and permissions in files and directory
+chown
+chmod
+
+Process and resource monitoring
+ps
+top
+
+=============================================================================================================================
+
+Package management
+
+apt/apt-get
+Dpkg
+
+Task scheduling
+
+At
+at <time>
+HH:MM(am/pm) DD.MM.YY YYYY-MM-DD MM/DD/[cc]YY MMDD
+-now +num period minutes hours days weeks
+
+Cron
+<min> <Hour> <DoM> <Month> <DoW> <Command/Script>
+[00-59] [00-23]  [1-31]    [1-12]    [0-6/1-7] 
+					     
+* = any
+/ = frequency. */N, A-B/N 
+, = multiple. A,B,C
+- = range. A-B
+
+#crontab
+
+
+
+Accessing logs with tail
+
+tail <options> <logfile>
+
+Logs location: /var/log
+
+<DateTime>	<Hostname>	<Process>[PID]:	Message
+
+var/log/syslog
+stores all records about any global activity in the system. Basically, every event that happens goes into this log.
+var/log/dmesg
+stores all logs related to system drivers.
+var/log/cups
+stores all logs related to printer.
+/var/log/auth.log
+stores all security-related actions. Those include login, logout, and root user activity.
+/var/log/kern.log
+stores events of the kernel like info, warning, and errors. Those logs are especially useful for custom kernels.
+/var/log/boot.log
+stores system startup info.
+/var/log/apt
+stores apt service logs.
+/var/log/utmp
+stores users currently logged in the system. $who -H
+/var/log/wtmp
+stores users previously logged in. It contains the past data from utmp. $last -R
+/var/log/btmp
+stores failed login attempts. $lastb
+
+Network configuration
+
+Ip 
+
+Ifconfig
+
+Netplan
+etc/netplan/
+sudo netplan generate
+sudo netplan apply
+
+Network tools
+
+Ping:
+ping <options> <address>/<ip>
+traceroute	
+netstat:
+netstat <options> 
+
+Mtr
+mtr <options> <domain/IP address>	
+
+nmcli
+
+nmtui ==> GUI network configuration. 
+
+
+
+
+Managing Services
+Systemd
+Systemctl
+
+"/usr/lib/systemd/system"
+"/lib/systemd/system"
+"/etc/systemd/system"
+
+
+
+Firewall:
+ufw  => 
+allow, 
+deny, 
+reject, 
+limit, 
+show, 
+reset, 
+reload,
+disable
+
+
+
+Remote login using SSH
+Using user and passwd
+$ ssh <username>@<host-address>:<port>
+
+Using ssh private key
+$ ssh-keygen
+$ ssh-copy-id
+
+Using tar for handling archive
+tar <options> <files/dirs>
+Create archive
+$ tar -cvf
+$ tar -cvzf
+
+List archive
+$ tar -tvf 
+
+Add new files/dirs to archive
+$ tar -rvf
+
+Extract an archive
+$ tar -xvf
+
+Downloading files using wget
+
+
+
+Shell Scripting.
+comment
+she-bang, interpreter's path
+commands
+
+logical operations
+if
+case
+while
+for
+
+
 
 
 

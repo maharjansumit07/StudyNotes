@@ -1,0 +1,17 @@
+Vagrant
+
+https://app.vagrantup.com/boxes/search 
+
+
+CLI
+ vagrant autocomplete install –bash
+ Vagrant box add/list/outdated/prune/remove/update
+ Vagrant init <box-name> e.g. hashicorp/bionic64
+ vagrant validate
+ Vagrant up
+ Vagrant rdp -- /span or ssh
+ Vagrant reload
+ Vagrant suspend
+ Vagrant destroy
+ vagrant port [name|id]
+ vagrant box add <box-name>
