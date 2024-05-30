@@ -58,17 +58,17 @@ change
 
 -I  ==> inactive,    
 
--d  ==> last date       chage -d 2023-12-12 username  
+-d  ==> last date    ==>   chage -d 2023-12-12 username  
 
--E  ==> Expire date     chage -E 2024-05-31 username  
+-E  ==> Expire date  ==>   chage -E 2024-05-31 username  
 
--l  ==> list            chage -l username
+-l  ==> list         ==>   chage -l username
 
--m  ==> minimum day     chage -d 2024-05-29 username   
+-m  ==> minimum day  ==>   chage -d 2024-05-29 username   
 
--M  ==> Maximum day     chage -M -1 username
+-M  ==> Maximum day   ==>  chage -M -1 username
 
--W  ==> warning day.    chage -W 7 username
+-W  ==> warning day. ==>   chage -W 7 username
 
 
 usermod
