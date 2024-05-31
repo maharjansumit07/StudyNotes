@@ -6,36 +6,43 @@ What is the sign displayed at first terminal login?
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 Package manager			
-ubuntu/mint -- apt, snapd, flatpak, software center.
-Debian - apt,aptitude, snap, flatpak,apt-get,apt-cache
-centos/rocky linux -- dnf , yum		
-fedora - yum, dnf		
-arch - pamac, yay, paru,, flatpak		
-----------------------------------------------------------------------------------------------------------------------------------------
-File And Direcotry Management
-pwd =>
-ls =>
-vi
-Nano
-gedit
-cat
-less
-more
-grep
-egrep
-rm
-mkdir
-rmdir
-cd
-cp
-scp
-mv
-history
-whereis
-find 
-hard link
-soft link
-file permissions
+ubuntu/mint         -- apt, snapd, flatpak, software center.
+Debian              -  apt,aptitude, snap, flatpak,apt-get,apt-cache
+centos/rocky linux  -- dnf , yum		
+fedora              - yum, dnf		
+arch                - pamac, yay, paru,, flatpak		
+=========================================================================================================================================
+File Types   = the file types are defied by their first character or letter. 
+
+
+1. Regular files   == "-"
+    -rw-rw-r-- 1 k k    0 Dec  9 09:16 myfile1
+
+2. Directory files  == "d"
+    drwxrwxr-x 2 k k 4096 Dec  9 09:16 mydir
+    
+
+3. Special files
+    a. Block files  == "b"
+    There files are hardware files and they are present in /dev. They are create by partitioning or by fdisk.
+    brw-rw----  1 root disk        7,   0 Dec  8 13:31 loop0
+    brw-rw----  1 root disk        7,   7 Dec  8 13:31 loop7
+
+    b. Character Device file  == "c"
+    They provide a serial steam of input or output.
+    crw-r----- 1 root root 13, 32 Dec  9 08:39 /dev/input/mouse0
+
+    c. Pipe file == "p"
+    prw-rw-r--   1 k k    0 Dec  9 09:56 backpipe
+
+    d. Symbolic file  == "l"
+    These are linked files, meaning a shortcut files as in Windows. The inode number for theses file and parent files are same.
+    lrwxrwxrwx 1 k k    7 Dec  9 09:16 my_link -> myfile1
+
+    e. Socket File  == "s"
+    it is used to pass informatio between applications.
+    srw-rw-rw- 1 root       root          0 Dec  8 13:31 acpid.socket
+    srw-rw---- 1 root       docker        0 Dec  8 14:15 docker.sock
 
 =========================================================================================================================================
 Command Accesibility (to get details about commands)
@@ -43,7 +50,79 @@ Command Accesibility (to get details about commands)
 --help or /h  -> to learn about the commands , usually used after the command to get more detail.
 info    ->  it provides detailed hyperlinked documentations. The pages are organized into chapters and sections. 
 whatis  ->  will display one line summary of the purpose of the command. It can be very helpful when we want the description of the command without going into the detailed syntax or options. 
-man     ->  short of "Manual", provdies the standartd reference documentation 
+man     ->  short of "Manual", provides the standard reference documentation 
+----------------------------------------------------------------------------------------------------------------------------------------
+File And Direcotry Management
+pwd => to know the current location.
+ls =>  to list the file
+rm  ==> Remove command, used for removing or deleting files and directories. 
+mkdir ==> Make Directory, is used to Create a new directory or folder. 
+rmdir ==> remove directory, to remove directory. 
+history ==> to view and manage the command history. 
+
+Editors:
+vi  => vim editor to edit the files. [!Note] Always user 'sudo' if you are not logged in as 'root' user. 
+Nano => simple text editor, and very friendly. 
+gedit => Graphical Text Editor as part of GNOME desktop environment.
+
+View data within the file.
+cat  => a fundamental command that is used for various text view or manipulations tasks.
+less => similar to cat , but used to view the contents of text files or the output of other commands. 
+more => similar to cat, but used to view the contents of text files or the out of other commands one page at a time.
+cd ==> Change Directory, to navigate to the file system or other directory. 
+
+
+external search within the file.
+grep => (Global Regular Expression Print) a command line tool for searching and filtering text. It is widely used in shell scirpts system administration tasks, and data processing workflows. 
+egrep  ==> (Extended GREP) is a more pattern matching than grep. as Grep uses basic expressionss , egrep uses extended regular expressions. It can be used to search more than 1 pattern search. 
+
+
+copy files,
+cp ==> to copy files and directories.
+scp ==> Secure Copy Protocol , to securely copy files between computer over a network. 
+scp user@ip:path/to/remote /path/to/local_directory/
+mv ==> to more a file or rename files or directories.
+
+find out file location.
+whereis ==> to locate the binary,source, and manual page files for a given command or program. 
+find ==> used to search files and direcories based on various criteria, such as names, type, size, permissions and more.
+find /path/to/directory -name "filename.txt"
+find /path/to/directory -type f # for files,   - type d for direcotry.
+find /path/to/directory -size +100M  -- files larger than 100MB , -size -20k --files smaller than 20K.
+find /path/to/directory -mtime +8    --files modified more than 8 days ago,     -mtime -1  --files modified less than 1 day ago.
+find /path/to/directory -perm 777    --files with permissions 777 (rwxrwxrwx)
+find /path/to/directory -name "*.txt" -exec cp {} /backup/directory \;      --to execute command on found files.
+find /path/to/directory -type f -name "*.doc" -size +40M -mtime -7          --to find the file extensions with doc with size more than 40MB and modified in within last 7 days.
+
+
+=========================================================================================================================
+File permissions:
+Read= 4,        write = 2       execute =1 
+permissions.
+1       only execute
+2       only write
+3       write and execute
+4       only Read
+5       Read and execute
+6       read and write
+7       read, write, execute.
+
+chmod 777 example.txt
+here first 7 is for the user,  second 7 is for Group and third 7 is for others.
+
+or, 
+chmod u=rwx, g=rwx ,o=rwx file/directory
+chmod u=rw, g=, o= files/directory
+
+or, simply all uses the below command for the permission change.
+chmod +rwx files/directory 
+
+
+inode ==> index node, 
+hard link
+soft link
+file permissions
+
 ----------------------------------------------------------------------------------------------------------------------------------------
 User Group and Management
 
@@ -231,7 +310,6 @@ sudo netplan generate
 sudo netplan apply
 
 Network tools
-
 Ping:
 ping <options> <address>/<ip>
 traceroute	
@@ -240,10 +318,10 @@ netstat <options>
 
 Mtr
 mtr <options> <domain/IP address>	
-
 nmcli
-
 nmtui ==> GUI network configuration. 
+tcpdump 
+netsh
 
 
 
