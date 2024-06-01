@@ -73,30 +73,64 @@ cd ==> Change Directory, to navigate to the file system or other directory.
 $ cd (enter)
  this is take directly to home directory.
 
-Relative Path
+Relative Path ==> refers to a way of specifying the location  of a file or directory that is relative to the current working directory.
+directory
+eg. I have a file here at /home/test folder with text.txt file.
+Linux_practical:~/test$ ls -l
+total 4
+-rw-r--r-- 1 root root    0 Jun  1 19:57 test
+-rw-r--r-- 1 root root    0 Jun  1 19:58 test.txt
+drwxr-xr-x 3 root root 4096 Jun  1 19:55 test1
 
-Absolute Path
+now jumping into child directories till test2.
+Linux_practical:~/test$ cd test1
+Linux_practical:~/test/test1$ cd test2
 
+so relative path here is that .. represents 1 step above the child directory, 
+and adding another .. means going another above of child directory or towards parent directory.
+Here, as example, I am trying to view the file from Test2 folder, going 2 steps towards the parent directory.
+so I am going from test2 to test1 and then test1 to test parent directory. 
+Linux_practical:~/test/test1/test2$ ls -l ../../
+total 4
+-rw-r--r-- 1 root root    0 Jun  1 19:57 test
+-rw-r--r-- 1 root root    0 Jun  1 19:58 test.txt
+drwxr-xr-x 3 root root 4096 Jun  1 19:55 test1
 
-external search within the file.
+Similarly, we can move from parent directory to child directory as needed. 
+
+Absolute Path==> refers to the complete and exact location of a file or directory from root directory.
+Here, We are in test2 folder. 
+Linux_Practical:~/test/test1/test2$ pwd
+/home/user/test/test1/test2
+Linux_Practical:~/test/test1/test2$ ls
+2ndtest.txt
+Linux_Practical:~/test/test1/test2$ cd
+
+now to view the file, we will be looking from root to home directory going int user directory and lastly to its child directory.
+Linux_Practical:~$ ls /home/user/test/test1/test2/
+2ndtest.txt
+
+-----------------------------------------------------------------------------------------------------------------------------------
+External search within the file.
 grep => (Global Regular Expression Print) a command line tool for searching and filtering text. It is widely used in shell scirpts system administration tasks, and data processing workflows. 
 egrep  ==> (Extended GREP) is a more pattern matching than grep. as Grep uses basic expressionss , egrep uses extended regular expressions. It can be used to search more than 1 pattern search. 
 
-
+------------------------------------------------------------------------------------------------------------------------------------
 copy files,
 cp ==> to copy files and directories.
 scp ==> Secure Copy Protocol , to securely copy files between computer over a network. 
 scp user@ip:path/to/remote /path/to/local_directory/
 mv ==> to more a file or rename files or directories.
-
+-------------------------------------------------------------------------------------------------------------------------
 find out file location.
 whereis ==> to locate the binary,source, and manual page files for a given command or program. 
+
 find ==> used to search files and direcories based on various criteria, such as names, type, size, permissions and more.
 find /path/to/directory -name "filename.txt"
-find /path/to/directory -type f # for files,   - type d for direcotry.
-find /path/to/directory -size +100M  -- files larger than 100MB , -size -20k --files smaller than 20K.
-find /path/to/directory -mtime +8    --files modified more than 8 days ago,     -mtime -1  --files modified less than 1 day ago.
-find /path/to/directory -perm 777    --files with permissions 777 (rwxrwxrwx)
+find /path/to/directory -type f # for files,  - type d for direcotry.
+find /path/to/directory -size +100M             -- files larger than 100MB , -size -20k --files smaller than 20K.
+find /path/to/directory -mtime +8               --files modified more than 8 days ago,     -mtime -1  --files modified less than 1 day ago.
+find /path/to/directory -perm 777               --files with permissions 777 (rwxrwxrwx)
 find /path/to/directory -name "*.txt" -exec cp {} /backup/directory \;      --to execute command on found files.
 find /path/to/directory -type f -name "*.doc" -size +40M -mtime -7          --to find the file extensions with doc with size more than 40MB and modified in within last 7 days.
 
@@ -143,9 +177,16 @@ This is an updated file.
 $ cat hard_link.txt
 This is an updated file.
 
+soft link==> also known as symbolic link, is a special file that serves as a reference to another file or direcotry. 
+Similar to creating a shortcut file in windows.
+It is created using the 'ln' command with the '-s' option.
+eg. 
+ln -s source.filename linkname
+ln -s file1 link1
 
-soft link==>
-
+ln -s /home/user/documents/important_document.txt /home/user/desktop/important_doc_link
+ls -l /home/user/desktop
+lrwxrwxrwx 1 user user 36 Jun 01 2024 important_doc_link -> /home/user/documents/important_document.txt
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 User Group and Management
@@ -189,17 +230,17 @@ change
 
 -I  ==> inactive,    
 
--d  ==> last date    ==>   chage -d 2023-12-12 username  
+-d  ==> last date    ==>         chage -d 2023-12-12 username  
 
--E  ==> Expire date  ==>   chage -E 2024-05-31 username  
+-E  ==> Expire date  ==>         chage -E 2024-05-31 username  
 
--l  ==> list         ==>   chage -l username
+-l  ==> list, view inforamion.  ==>   chage -l username
 
--m  ==> minimum day  ==>   chage -d 2024-05-29 username   
+-m  ==> minimum day  ==>         chage -d 2024-05-29 username   
 
--M  ==> Maximum day   ==>  chage -M -1 username
+-M  ==> Maximum day   ==>        chage -M -1 username
 
--W  ==> warning day. ==>   chage -W 7 username
+-W  ==> warning day. ==>         chage -W 7 username
 
 ===================================================================================================================================
 
@@ -226,6 +267,12 @@ usermod -s /path/to/new/shell username        ==> to change user's shell
 usermod -p passord_expire_days username      ==> to set or change the user's password expire date information. 
 
 ====================================================================================================================================
+passwd username                 ==>  change user password
+passwd -x 90 username           ==>  Change User's password expiration date to 90 days.
+passwd -l username              ==>  to lock the user account.
+passwd -u username              ==>  unlock the user account.
+passwd -e username              ==>  To set the password expire immediately.
+====================================================================================================================================
 
 DNS troubleshooting commands
 -----------------------------
@@ -233,7 +280,7 @@ DIG:
 ----
 dig == Domain information Groper - a troubleshooting tool in linux and Unix-like operating system. It is used to perform DNS lookups and analyze the responses.
 dig www.example.com.np
-dig -x IP-ADDRESS 			==> to find out the Name server PTR (Pointer Record).
+dig -x IP-ADDRESS           	==> to find out the Name server PTR (Pointer Record).
 dig @8.8.8.8 example.com.np
 dig example.com.np A
 dig example.com.np MX
@@ -246,12 +293,19 @@ dig +yaml www.example.com
 
 NSLOOKUOP
 ---------
-
+nslookup www.example.com
+nslookup -type=PTR IP-ADDRESS/domain-name       , MX, SOA, 
+nslookup -debug www.example.com     ==> provides more dtailed information about DNS resolution process,
+including the query and response packets.
+nslookup -debug -type=A www.example.com
+nslookup server 8.8.8.8 example.com         ==> to use 8.8.8.8 server and perform a lookup for the domain example.com
 
 host:
-host -C google.com   ==> to display the nameservers IP and SOA record
-
-host -d sumaharjan.com  ==> to display nameservers and MX record.
+------
+host www.example.com         ==> it will display address and mail primary and secondary MX server.
+host -a www.example.com      ==> will display detail of A,AAA, MX and NS information.
+host -C google.com           ==> to display the nameservers IP and SOA record
+host -d sumaharjan.com       ==> to display nameservers and MX record.
 
 =========================================================================================================================================
 
@@ -448,8 +502,7 @@ Linux Structure.
                    |---- /usr/          [User Programs]
 
 
-Relative Path
-Absolute Path
+.bashrc
 
 
 
