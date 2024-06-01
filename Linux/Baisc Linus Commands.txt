@@ -116,12 +116,18 @@ chmod u=rw, g=, o= files/directory
 
 or, simply all uses the below command for the permission change.
 chmod +rwx files/directory 
+==========================================================================================================================
 
+inode ==> index node, a data structure that stores information about a file or directory. it is used by the operating ysstem to access and manage the file or directory. 
+it stores the metadata , or attributes of a file or directory such as file type, permissions, user and group ownership, file size, timestamp,and file store place. 
+$ ls -i 
+12345 -rw-r--r-- 2 user group 1024 May 31 2024 
+12345 -rw-r--r-- 2 user group 1024 May 31 2024 
+Here, as above, 12345 is the inode. 
 
-inode ==> index node, 
 hard link
 soft link
-file permissions
+
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 User Group and Management
@@ -130,9 +136,9 @@ Whoami => to view the active user using the shell.
 
 su  => switch user
 
-Chown
+Chown  => change ownership of the file or directory.
 
-chmod
+chmod  => to change the access permissions of the files or directories.
 
 useradd  => to add users.
 
@@ -144,7 +150,7 @@ groups => to manage user groups. Groups are collections of users that share perm
 
 usermod => to modify user account properties, such as primary group, login shell,, home directory and other settings. 
 
-groupmod
+groupmod => to modif the properties of an exising group including changing group name, Group ID or the group members.
 
 chage  => to manage user account password and aging information .
 
@@ -388,8 +394,31 @@ while
 for
 
 
+Linux Structure. 
+                                            / (root)
+                                            | 
+                                            |
+----------------------------------------------------------------------------------------------------------------------      
+ |           
+ |
+home
 
 
+
+
+var
+etc
+usr
+opt
+tmp
+dev
+home
+root
+boot
+bin
+mnt
+run
+sys
 
 
 
