@@ -40,7 +40,7 @@ File Types   = the file types are defied by their first character or letter.
     lrwxrwxrwx 1 k k    7 Dec  9 09:16 my_link -> myfile1
 
     e. Socket File  == "s"
-    it is used to pass informatio between applications.
+    it is used to pass information between applications.
     srw-rw-rw- 1 root       root          0 Dec  8 13:31 acpid.socket
     srw-rw---- 1 root       docker        0 Dec  8 14:15 docker.sock
 
@@ -70,6 +70,12 @@ cat  => a fundamental command that is used for various text view or manipulation
 less => similar to cat , but used to view the contents of text files or the output of other commands. 
 more => similar to cat, but used to view the contents of text files or the out of other commands one page at a time.
 cd ==> Change Directory, to navigate to the file system or other directory. 
+$ cd (enter)
+ this is take directly to home directory.
+
+Relative Path
+
+Absolute Path
 
 
 external search within the file.
@@ -125,8 +131,20 @@ $ ls -i
 12345 -rw-r--r-- 2 user group 1024 May 31 2024 
 Here, as above, 12345 is the inode. 
 
-hard link
-soft link
+hard link ==> allows efficient file management and organization by providing multiple access points to the same file data.
+$ ln original_file hard_link_file
+$ ls -li
+25165842 -rw-r--r-- 2 user group 25 May 31 12:34 hard_link.txt
+25165842 -rw-r--r-- 2 user group 25 May 31 12:34 original_file.txt
+
+$ echo "This is an updated file." > original_file.txt
+$ cat original_file.txt
+This is an updated file.
+$ cat hard_link.txt
+This is an updated file.
+
+
+soft link==>
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------
@@ -150,7 +168,7 @@ groups => to manage user groups. Groups are collections of users that share perm
 
 usermod => to modify user account properties, such as primary group, login shell,, home directory and other settings. 
 
-groupmod => to modif the properties of an exising group including changing group name, Group ID or the group members.
+groupmod => to modify the properties of an existing group including changing group name, Group ID or the group members.
 
 chage  => to manage user account password and aging information .
 
@@ -209,8 +227,10 @@ usermod -p passord_expire_days username      ==> to set or change the user's pas
 
 ====================================================================================================================================
 
-DNS:
-
+DNS troubleshooting commands
+-----------------------------
+DIG:
+----
 dig == Domain information Groper - a troubleshooting tool in linux and Unix-like operating system. It is used to perform DNS lookups and analyze the responses.
 dig www.example.com.np
 dig -x IP-ADDRESS 			==> to find out the Name server PTR (Pointer Record).
@@ -219,12 +239,13 @@ dig example.com.np A
 dig example.com.np MX
 dig SOA +multiline example.com.np
 dig +nssearch example.com.np		==> to display primary and secondary name servers with IP address.
-dig SOA example.com.np @ns1.example.com		==> to retrieve SOA recrod from the specific name server. 
+dig SOA example.com.np @ns1.example.com		==> to retrieve SOA record from the specific name server. 
 dig +trace www.example.com
 dig +yaml www.example.com
 
 
-nslookup
+NSLOOKUOP
+---------
 
 
 host:
@@ -395,31 +416,40 @@ for
 
 
 Linux Structure. 
-                                            / (root)
-                                            | 
-                                            |
-----------------------------------------------------------------------------------------------------------------------      
- |           
- |
-home
+
+                   | ---- /bin/         [Essential User Command Binaries]
+                   | 
+                   | ---- /boot/        [Files of the boot loader]
+                   |     
+                   |---- /dev/          [Hardware Device files]
+                   |
+                   |---- /media/        [Removable Media]
+                   |
+                   |---- /mnt/          [Mounted FileSystem]
+                   |
+                   |---- /opt/          [Add on Application software package]
+                   |                    
+                   |---- /sbin/         [System Binary]
+                   |
+  / (root)---------|---- /srv/          [Service Data]
+                   |
+                   |---- /proc/         [Process Information]
+                   |
+                   |---- /home/         [Home Directory]
+                   |
+                   |---- /etc/          [Configuration Files]
+                   |
+                   |---- /var/          [Variable Files]
+                   |
+                   |---- /lib/          [System Libraries]
+                   |
+                   |---- /tmp/          [Temporary files]
+                   |
+                   |---- /usr/          [User Programs]
 
 
-
-
-var
-etc
-usr
-opt
-tmp
-dev
-home
-root
-boot
-bin
-mnt
-run
-sys
-
+Relative Path
+Absolute Path
 
 
 
