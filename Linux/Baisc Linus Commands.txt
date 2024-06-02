@@ -3,6 +3,20 @@ What is the sign displayed at first terminal login?
 "$" -- typically a default command prompt for regular account with standard user permissions and does not have administrative or root access. Users can execute most commands, but may not have the necessary permissions to perform certain administrative tasks.
 
 " # "  -- a default command prompt for the root or administartive user account. The user or root has full administrative privileges and can execute any commands. it has the highest level of access and can perform the administartive tasks such as installing, modifying and managing user accounts. 
+----------------------------------------------------------------------------------------------------------------------------------------
+
+Hostname:  System's identity name. 
+---------
+The hostname is saved into /etc/hostname
+
+$ sudo nano /etc/hostname
+set the hostname or change the hostname if present. 
+
+or simply directly change the hostname by this command. 
+$ sudo hostnamectl set-hostname "new_hostname"
+or we can reflect to /etc/hosts direclty by adding this.
+$ sudo hostnamectl set-hostname "new_hostname" --static
+
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 Package manager			
@@ -70,8 +84,9 @@ cat  => a fundamental command that is used for various text view or manipulation
 less => similar to cat , but used to view the contents of text files or the output of other commands. 
 more => similar to cat, but used to view the contents of text files or the out of other commands one page at a time.
 cd ==> Change Directory, to navigate to the file system or other directory. 
-$ cd (enter)
+$ cd (enter)      or cd ~/    or cd ~
  this is take directly to home directory.
+
 
 Relative Path ==> refers to a way of specifying the location  of a file or directory that is relative to the current working directory.
 directory
@@ -199,6 +214,8 @@ ln -s source.filename linkname
 ln -s file1 link1
 
 ln -s /home/user/documents/important_document.txt /home/user/desktop/important_doc_link
+
+To view the soft link.
 ls -l /home/user/desktop
 lrwxrwxrwx 1 user user 36 Jun 01 2024 important_doc_link -> /home/user/documents/important_document.txt
 
@@ -345,13 +362,15 @@ apt/apt-get
 Dpkg
 
 Task scheduling
-
-At
+---------------
+At :
+-----
 at <time>
 HH:MM(am/pm) DD.MM.YY YYYY-MM-DD MM/DD/[cc]YY MMDD
 -now +num period minutes hours days weeks
 
-Cron
+Cron:
+------
 <min> <Hour> <DoM> <Month> <DoW> <Command/Script>
 [00-59] [00-23]  [1-31]    [1-12]    [0-6/1-7] 
 					     
@@ -363,7 +382,7 @@ Cron
 #crontab
 
 
-
+head
 Accessing logs with tail
 
 tail <options> <logfile>
@@ -373,25 +392,25 @@ Logs location: /var/log
 <DateTime>	<Hostname>	<Process>[PID]:	Message
 
 var/log/syslog
-stores all records about any global activity in the system. Basically, every event that happens goes into this log.
+== stores all records about any global activity in the system. Basically, every event that happens goes into this log.
 var/log/dmesg
-stores all logs related to system drivers.
+== stores all logs related to system drivers.
 var/log/cups
-stores all logs related to printer.
+== stores all logs related to printer.
 /var/log/auth.log
-stores all security-related actions. Those include login, logout, and root user activity.
+== stores all security-related actions. Those include login, logout, and root user activity.
 /var/log/kern.log
-stores events of the kernel like info, warning, and errors. Those logs are especially useful for custom kernels.
+== stores events of the kernel like info, warning, and errors. Those logs are especially useful for custom kernels.
 /var/log/boot.log
-stores system startup info.
+== stores system startup info.
 /var/log/apt
-stores apt service logs.
+== stores apt service logs.
 /var/log/utmp
-stores users currently logged in the system. $who -H
+== stores users currently logged in the system. $who -H
 /var/log/wtmp
-stores users previously logged in. It contains the past data from utmp. $last -R
+== stores users previously logged in. It contains the past data from utmp. $last -R
 /var/log/btmp
-stores failed login attempts. $lastb
+== stores failed login attempts. $lastb
 
 Network configuration
 
@@ -410,7 +429,38 @@ ping <options> <address>/<ip>
 traceroute	
 netstat:
 netstat <options> 
+DNS 
+host
 
+-----------------------------------------------------------------------------------------------------
+lsof (List Open Files)
+-----------------------
+lsof                ==> List all files opened by any process
+lsof -p 1000        ==> List files opened by a process with PID 1000
+lsof -p #1000       ==> List files opened by any other process than PID 1000
+lsof -u <username>  ==> List files opened by specific user-owned processes
+lsof -u^root List   ==> files opened by all non-root users
+lsof <directory>    ==> Show what processes are using <directory>
+lsof <filename>     ==> List all processes that have opened <filename>
+lsof +D /tmp        ==> List all files that have been opened under /tmp
+lsof +L1            ==> List files deleted but still held open by running processes
+lsof -c <command>   ==> List open files by processes executing <command>
+lsof -d mem         ==> List all memory-mapped files
+
+List Network Connections and Sockets
+
+lsof -i             ==> List all open network connections
+lsof -1:80          ==> List open TCP/UDP connections with port 80
+lsof -i tep:1-1024  ==> List open TCP connections with a given port range
+lsof -i-n           ==> List open network connections with no reverse DNS lookup
+lsof -i-n -P        ==> List open network connections with no port name conversion
+lsof -i6            ==> List open IPv6 network connections (-i4 for IPv4)
+
+other uses
+lsof -U             ==> List open unix domain sockets
+lsof /dev/tty1      ==> List commands/processes associated with /dev/tty1
+kill -9 $(lsof -t -u <username>) ==> Kill all activities of a specific user
+-----------------------------------------------------------------------------------------------------
 Mtr
 mtr <options> <domain/IP address>	
 nmcli
@@ -517,6 +567,9 @@ Linux Structure.
 
 
 .bashrc
+head
+
+
 
 
 
