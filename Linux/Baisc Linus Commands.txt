@@ -147,6 +147,8 @@ permissions.
 6       read and write
 7       read, write, execute.
 
+chmod: change mode, to change the access permission fo file or directories.
+----------
 chmod 777 example.txt
 here first 7 is for the user,  second 7 is for Group and third 7 is for others.
 
@@ -156,6 +158,18 @@ chmod u=rw, g=, o= files/directory
 
 or, simply all uses the below command for the permission change.
 chmod +rwx files/directory 
+
+
+chown: Change ownership
+-------
+$ chown [option] owner[:group] file
+$ chown john:staff document.txt
+or 
+$ chown john document.txt
+$ chown -R john:staff /path/to/directory
+The above example is to change the ownership of a direcotry and all its contents.
+
+
 ==========================================================================================================================
 
 inode ==> index node, a data structure that stores information about a file or directory. it is used by the operating ysstem to access and manage the file or directory. 
@@ -308,20 +322,20 @@ host -C google.com           ==> to display the nameservers IP and SOA record
 host -d sumaharjan.com       ==> to display nameservers and MX record.
 
 =========================================================================================================================================
-
-
-
 mount
 
 
 
-Managing ownership and permissions in files and directory
-chown
-chmod
-
 Process and resource monitoring
 ps
 top
+
+=============================================================================================================================
+
+System Check commands:
+----------------------
+
+
 
 =============================================================================================================================
 
