@@ -2,7 +2,7 @@ What is the sign displayed at first terminal login?
 
 "$" -- typically a default command prompt for regular account with standard user permissions and does not have administrative or root access. Users can execute most commands, but may not have the necessary permissions to perform certain administrative tasks.
 
-" # "  -- a default command prompt for the root or administartive user account. The user or root has full administrative privileges and can execute any commands. it has the highest level of access and can perform the administartive tasks such as installing, modifying and managing user accounts. 
+" # "  -- a default command prompt for the root or administrative user account. The user or root has full administrative privileges and can execute any commands. it has the highest level of access and can perform the administrative tasks such as installing, modifying and managing user accounts. 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 Hostname:  System's identity name. 
@@ -14,7 +14,7 @@ set the hostname or change the hostname if present.
 
 or simply directly change the hostname by this command. 
 $ sudo hostnamectl set-hostname "new_hostname"
-or we can reflect to /etc/hosts direclty by adding this.
+or we can reflect to /etc/hosts directly by adding this.
 $ sudo hostnamectl set-hostname "new_hostname" --static
 
 
@@ -120,6 +120,7 @@ Linux_Practical:~/test/test1/test2$ pwd
 Linux_Practical:~/test/test1/test2$ ls
 2ndtest.txt
 Linux_Practical:~/test/test1/test2$ cd
+Linux_Practical:~$
 
 now to view the file, we will be looking from root to home directory going int user directory and lastly to its child directory.
 Linux_Practical:~$ ls /home/user/test/test1/test2/
@@ -131,13 +132,17 @@ grep => (Global Regular Expression Print) a command line tool for searching and 
 egrep  ==> (Extended GREP) is a more pattern matching than grep. as Grep uses basic expressionss , egrep uses extended regular expressions. It can be used to search more than 1 pattern search. 
 
 ------------------------------------------------------------------------------------------------------------------------------------
+
 copy files,
+-----------
 cp ==> to copy files and directories.
 scp ==> Secure Copy Protocol , to securely copy files between computer over a network. 
 scp user@ip:path/to/remote /path/to/local_directory/
 mv ==> to more a file or rename files or directories.
 -------------------------------------------------------------------------------------------------------------------------
+
 find out file location.
+------------------------
 whereis ==> to locate the binary,source, and manual page files for a given command or program. 
 
 find ==> used to search files and direcories based on various criteria, such as names, type, size, permissions and more.
@@ -152,6 +157,7 @@ find /path/to/directory -type f -name "*.doc" -size +40M -mtime -7          --to
 
 =========================================================================================================================
 File permissions:
+-------------------
 Read= 4,        write = 2       execute =1 
 permissions.
 1       only execute
@@ -161,7 +167,7 @@ permissions.
 5       Read and execute
 6       read and write
 7       read, write, execute.
-
+-------------------------------------------------------------------------------------------------------------------------------
 chmod: change mode, to change the access permission fo file or directories.
 ----------
 chmod 777 example.txt
@@ -182,7 +188,7 @@ $ chown john:staff document.txt
 or 
 $ chown john document.txt
 $ chown -R john:staff /path/to/directory
-The above example is to change the ownership of a direcotry and all its contents.
+The above example is to change the ownership of a directory and all its contents.
 
 
 ==========================================================================================================================
@@ -223,6 +229,8 @@ lrwxrwxrwx 1 user user 36 Jun 01 2024 important_doc_link -> /home/user/documents
 User Group and Management
 
 Whoami => to view the active user using the shell.
+or 
+users   == to view the current user.
 
 su  => switch user
 
@@ -304,6 +312,67 @@ passwd -l username              ==>  to lock the user account.
 passwd -u username              ==>  unlock the user account.
 passwd -e username              ==>  To set the password expire immediately.
 ====================================================================================================================================
+who :   to view who logged in
+------
+who         == display current users logged in detail.
+who -a      == all users  or simply it is combination of all (-b -d --login -r -p -t -T -u)
+who -b      == time of last boot
+who -d      == print dead process
+who -H      == print link of column headings 
+who -l      == login 
+who -q      == to view all logins names 
+who -r      == to view run level,
+who -s      == print only name
+who -T      == to display about terminal type and status of each users currently logged in.
+who -u      == List of users logged in with process id
+
+Linux@Pratical:~$ who -u
+Linux   pts/1        2024-06-01 11:57  old          487
+
+Linux@Practical:~$ who -a
+           system boot  2024-06-01 11:57
+LOGIN      console      2024-06-03 21:54            202733 id=cons
+LOGIN      tty1         2024-06-03 21:54            202646 id=tty1
+Linux   - pts/1        2024-06-01 11:57  old          487
+           run-level 5  2024-06-01 11:57
+           pts/2        2024-06-01 23:07            119361 id=ts/2  term=0 exit=0
+
+---------------------------------------------------------------------------------------------------------------
+Last:   == show listing of last users logged in. 
+------
+last        == display information about the last logged in users. 
+last -a     == display hostname in last column
+last -d     == translate ip into hostname 
+last -f     == use a specific file instead of /var/log/wtmp
+last -F     == Print full login and logout times and date
+last -i     == dipslay IP 
+last -s     == since times
+
+eg.  last -s (yyyy-mm-dd)
+    last -s (yyyy-mm-dd hh:mm:ss)
+    last -s (hh:mm)
+    last -s -(number)days
+    last -s (username)
+    last -s (1stusername 2nusername)
+Linxu@Practical:~$ last -s  12:00
+wtmp begins Sat May 25 13:47:06 2024
+
+last -t     == until time
+eg.
+Linux@Practical:~$ last -t  12:00
+Linux    pts/1                         Sat Jun  1 11:57    gone - no logout
+reboot   system boot  5.15.146.1-micro Sat Jun  1 11:57   still running
+Linux    pts/1                         Wed May 29 21:59 - crash (2+13:58)
+reboot   system boot  5.15.146.1-micro Wed May 29 21:59   still running
+Linux    pts/1                         Wed May 29 18:34 - crash  (03:24)
+
+last -p     == display who are present at the specific time.
+last -w     == display full user and domain names
+last -xr    == display system shut down enteries and run level changes.
+
+lastb       == to view bad login attempts
+------------------------------------------------------------------
+====================================================================================================================================
 
 DNS troubleshooting commands
 -----------------------------
@@ -342,8 +411,9 @@ host -d sumaharjan.com       ==> to display nameservers and MX record.
 mount
 
 
-
-Process and resource monitoring
+------------------------------------------------------------------------------------------------------------------------
+Process and resource monitoring:
+---------------------------------
 ps
 top
 
@@ -567,7 +637,8 @@ Linux Structure.
 
 
 .bashrc
-head
+getent -- examples
+
 
 
 
