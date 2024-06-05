@@ -305,6 +305,8 @@ usermod -s /path/to/new/shell username        ==> to change user's shell
 
 usermod -p passord_expire_days username      ==> to set or change the user's password expire date information. 
 
+usermod -u new_uid username                 ==> to change UDI .
+
 ====================================================================================================================================
 passwd username                 ==>  change user password
 passwd -x 90 username           ==>  Change User's password expiration date to 90 days.
@@ -312,6 +314,17 @@ passwd -l username              ==>  to lock the user account.
 passwd -u username              ==>  unlock the user account.
 passwd -e username              ==>  To set the password expire immediately.
 ====================================================================================================================================
+To check users login:
+======================
+w  ---  show who logged on and their activity.
+-------
+$ w 
+20:49:48 up 3 min,  1 user,  load average: 0.16, 0.10, 0.03
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+Linux    pts/1    -                20:46    3:32   0.04s  0.02s -bash
+
+-----------------------------------------------------------------------------------------------------------------------
+
 who :   to view who logged in
 ------
 who         == display current users logged in detail.
@@ -354,6 +367,7 @@ eg.  last -s (yyyy-mm-dd)
     last -s -(number)days
     last -s (username)
     last -s (1stusername 2nusername)
+
 Linxu@Practical:~$ last -s  12:00
 wtmp begins Sat May 25 13:47:06 2024
 
@@ -408,7 +422,40 @@ host -C google.com           ==> to display the nameservers IP and SOA record
 host -d sumaharjan.com       ==> to display nameservers and MX record.
 
 =========================================================================================================================================
-mount
+mount    ---- mount a filesystem
+------
+etc/fstab    --- may contain lines describing what devices are mounted and location.
+lsblk        --- List block devices , list information about all available or specified block devices.
+
+simple way to mound a new drive in linux.
+------------------------------------------
+$ lsblk   -- to list all block device, including new drivers
+or, else the new drive will be found on /dev/sdb or dev/nvme0n1
+
+$ sudo mkdir /mnt/newdrive              --create a mount point for the new drive
+$ sudo mount /dev/sdb1 /mnt/newdrive    --mount hte new drive to mount point.
+$ df -h                                 -- verify the mount, this will show the new drive mounted at /mnt/newdrive
+$ sudo nano /etc/fstab                  
+/dev/sdb1 /mnt/newdrive ext4 default 0 0 
+-- we need to keep the above /dev/sdb1 line code into /etc/fstab if we want that mount to be automatically open on boot.
+
+Mount a file system:
+$ sudo mount /dev/sdb1 /mnt/data
+
+mount a file system with a specific file system type:
+$ sudo mount -t ext4 /dev/sdb1 /mnt/data
+
+Mount a remote file system (eg. NFS):
+$ sudo mount -t nfs 192.168.1.100:/shared /mnt/remote
+
+mount a file system with a specific mount option 
+$ sudo mount -t ext4 -o rw,noatime,data=ordered /dev/sdb1 /mnt/data
+
+mount cd/dvd
+$ sudo mount /dev/cdrom /mnt
+
+mount iso image
+$ sudo mount -o loop /path/to/image.iso /mnt
 
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -476,7 +523,7 @@ var/log/cups
 /var/log/apt
 == stores apt service logs.
 /var/log/utmp
-== stores users currently logged in the system. $who -H
+== stores users currently logged in the system. $who -H   or    $ w 
 /var/log/wtmp
 == stores users previously logged in. It contains the past data from utmp. $last -R
 /var/log/btmp
@@ -638,7 +685,9 @@ Linux Structure.
 
 .bashrc
 getent -- examples
-
+systemctl -type = service 
+diff file1 file2
+cu -l /dev/ttyUSB0 -s 9600      == Access console 
 
 
 
