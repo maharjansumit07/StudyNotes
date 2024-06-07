@@ -160,6 +160,7 @@ File permissions:
 -------------------
 Read= 4,        write = 2       execute =1 
 permissions.
+0       No permission
 1       only execute
 2       only write
 3       write and execute
@@ -461,15 +462,59 @@ $ sudo mount -o loop /path/to/image.iso /mnt
 ------------------------------------------------------------------------------------------------------------------------
 Process and resource monitoring:
 ---------------------------------
-ps --
+ps -- Porcess status
+-----
+-- provicdes  a snapshot of the current processes running on the system.
+$ ps
+$ ps -e     |---\
+                 |-- To viee all process running on the system.
+$ ps aux    |---/
+
+$ ps -f             -- full format listing, giving more detailed information about each process.
+$ ps --forest       -- show processes in a tree formato, useful for visualizing parent-chlid relationship.
+$ ps -u username    -- display processes for a specifi user
+$ ps -x             -- show processes without a controlling terminal.
+$ ps -p PID         -- select processes by process ID.
+$ ps -T             -- Display threads.
 
 
-top --
+top -- provides real-time view of the system's processes. 
+-------
+key feature: process monitoring, CPU and Memory Usage, Process Proritization, Interactive commands
+$ top
+$ top -U username       -- to view top processes used by the user.
+$ top -c                -- display full command line for each process.
+eg.
+PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND                                      
+   2188 Linux      9 -11  408748  11948   8236 S   9.1   0.2   5:47.83 /usr/bin/wireplumber                         
+   2662 Linux     20   0 2279684  35448  16764 S   9.1   0.5  18:28.80 /usr/bin/gnome-software --gapplication-serv+ 
+  51968 Linux     20   0 1132.0g 910964 107880 S   9.1  11.7  57:45.81 /opt/google/chrome/chrome --type=renderer -+ 
 
-=============================================================================================================================
+$ top -n 5              -- to run the top command 5 times and exit.
+$ top -d 5              -- to update the display in every 5 seconds. 
 
-System Check commands:
-----------------------
+
+vmstat:   -- to display detailed information about system resource utilization, includeing cpu, memory , disk and swap usage.
+------------
+$ vmstat
+$ vmstat 5 10           -- to display the system statistics every 5 seconds and for 10 times.
+$ vmstat -S m 5 10      -- to diplay the memory usage in megabytes every 5 seconds and for 10 times.
+
+
+sar :  --  System Activity system_report
+-----
+-- used to collect, report, and save system activity information. 
+-- it provides detaile statistics on varoius sytem resources, makig it useful for performance analysis and troubleshooting. 
+
+$ sar -u            -- to show cpu usages.
+$ sar -u 1 5        -- to display CPU usages every 1 seconds for 5 intervals. 
+$ sar -r 1 5        -- to display memory useages every 1 seconds for 5 intervals. 
+$ sar -r 1 5 -h     -- to display memory usages that is easier to read as human. 
+eg. 
+01:51:55 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+01:51:56 PM    656.0M      1.7G      4.3G     58.7%     43.1M      2.0G     32.7G    220.0%      3.5G      2.4G    244.0k
+01:51:57 PM    669.0M      1.7G      4.3G     58.6%     43.1M      2.0G     32.7G    219.9%      3.5G      2.4G    244.0k
+
 
 
 
@@ -550,6 +595,14 @@ netstat:
 netstat <options> 
 DNS 
 host
+Mtr
+mtr <options> <domain/IP address>	
+nmcli
+nmtui ==> GUI network configuration. 
+tcpdump 
+sar -n DEV 2 10  -- to display network throughtput every 2 seconds for 20 seconds to detect network issue. 
+
+
 
 -----------------------------------------------------------------------------------------------------
 lsof (List Open Files)
@@ -580,15 +633,6 @@ lsof -U             ==> List open unix domain sockets
 lsof /dev/tty1      ==> List commands/processes associated with /dev/tty1
 kill -9 $(lsof -t -u <username>) ==> Kill all activities of a specific user
 -----------------------------------------------------------------------------------------------------
-Mtr
-mtr <options> <domain/IP address>	
-nmcli
-nmtui ==> GUI network configuration. 
-tcpdump 
-netsh
-
-
-
 
 Managing Services
 Systemd
@@ -685,13 +729,42 @@ Linux Structure.
                    |---- /usr/          [User Programs]
 
 
+
+
+=============================================================================================================================
+System Check commands:
+----------------------
+uname --
+--------
+
+lsb_release:
+
+
+cat /etc/os-release 
+
+df
+
+du 
+
+free
+
+systemctl 
+
+
+
+
+
+=============================================================================================================================
 .bashrc
 getent -- examples
 systemctl -type = service 
 diff file1 file2
 cu -l /dev/ttyUSB0 -s 9600      == Access console 
 
-
+> -- to copy and paste result to specified folder. 
+eg. 
+$ top -b -n 1 > system_report.txt
+the system_report.txt will have the output of top in the file. 
 
 
 
