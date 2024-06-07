@@ -14,6 +14,7 @@ set the hostname or change the hostname if present.
 
 or simply directly change the hostname by this command. 
 $ sudo hostnamectl set-hostname "new_hostname"
+
 or we can reflect to /etc/hosts directly by adding this.
 $ sudo hostnamectl set-hostname "new_hostname" --static
 
@@ -66,7 +67,43 @@ info    ->  it provides detailed hyperlinked documentations. The pages are organ
 whatis  ->  will display one line summary of the purpose of the command. It can be very helpful when we want the description of the command without going into the detailed syntax or options. 
 man     ->  short of "Manual", provides the standard reference documentation 
 ----------------------------------------------------------------------------------------------------------------------------------------
+Linux Structure. 
+
+                   | ---- /bin/         [Essential User Command Binaries]
+                   | 
+                   | ---- /boot/        [Files of the boot loader]
+                   |     
+                   |---- /dev/          [Hardware Device files]
+                   |
+                   |---- /media/        [Removable Media]
+                   |
+                   |---- /mnt/          [Mounted FileSystem]
+                   |
+                   |---- /opt/          [Add on Application software package]
+                   |                    
+                   |---- /sbin/         [System Binary]
+                   |
+  / (root)---------|---- /srv/          [Service Data]
+                   |
+                   |---- /proc/         [Process Information]
+                   |
+                   |---- /home/         [Home Directory]
+                   |
+                   |---- /etc/          [Configuration Files]
+                   |
+                   |---- /var/          [Variable Files]
+                   |
+                   |---- /lib/          [System Libraries]
+                   |
+                   |---- /tmp/          [Temporary files]
+                   |
+                   |---- /usr/          [User Programs]
+
+
+=================================================================================================================
+
 File And Direcotry Management
+-----------------------------
 pwd => to know the current location.
 ls =>  to list the file
 rm  ==> Remove command, used for removing or deleting files and directories. 
@@ -362,7 +399,7 @@ last -F     == Print full login and logout times and date
 last -i     == dipslay IP 
 last -s     == since times
 
-eg.  last -s (yyyy-mm-dd)
+eg. last -s (yyyy-mm-dd)
     last -s (yyyy-mm-dd hh:mm:ss)
     last -s (hh:mm)
     last -s -(number)days
@@ -459,7 +496,7 @@ mount iso image
 $ sudo mount -o loop /path/to/image.iso /mnt
 
 
-------------------------------------------------------------------------------------------------------------------------
+=========================================================================================================================================
 Process and resource monitoring:
 ---------------------------------
 ps -- Porcess status
@@ -477,7 +514,7 @@ $ ps -x             -- show processes without a controlling terminal.
 $ ps -p PID         -- select processes by process ID.
 $ ps -T             -- Display threads.
 
-
+---------------------------------------------------------------
 top -- provides real-time view of the system's processes. 
 -------
 key feature: process monitoring, CPU and Memory Usage, Process Proritization, Interactive commands
@@ -493,6 +530,7 @@ PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
 $ top -n 5              -- to run the top command 5 times and exit.
 $ top -d 5              -- to update the display in every 5 seconds. 
 
+--------------------------------------------------------------------
 
 vmstat:   -- to display detailed information about system resource utilization, includeing cpu, memory , disk and swap usage.
 ------------
@@ -500,7 +538,7 @@ $ vmstat
 $ vmstat 5 10           -- to display the system statistics every 5 seconds and for 10 times.
 $ vmstat -S m 5 10      -- to diplay the memory usage in megabytes every 5 seconds and for 10 times.
 
-
+---------------------------------------------------------------
 sar :  --  System Activity system_report
 -----
 -- used to collect, report, and save system activity information. 
@@ -508,6 +546,7 @@ sar :  --  System Activity system_report
 
 $ sar -u            -- to show cpu usages.
 $ sar -u 1 5        -- to display CPU usages every 1 seconds for 5 intervals. 
+$ sar -r -h         -- Display memory usage in human readable format.
 $ sar -r 1 5        -- to display memory useages every 1 seconds for 5 intervals. 
 $ sar -r 1 5 -h     -- to display memory usages that is easier to read as human. 
 eg. 
@@ -515,7 +554,20 @@ eg.
 01:51:56 PM    656.0M      1.7G      4.3G     58.7%     43.1M      2.0G     32.7G    220.0%      3.5G      2.4G    244.0k
 01:51:57 PM    669.0M      1.7G      4.3G     58.6%     43.1M      2.0G     32.7G    219.9%      3.5G      2.4G    244.0k
 
+$ sar -f /var/log/sysstat/sa10    -- display saved data from a specific file. 
+$ sar -f /var/log/sysstat/sa10 -s 8:00:00 -e 10:00:00 -u 
+-- this command will display the historical CPU utilization repfor from 8 am to 10 am using the data from file "sa10".
+eg. 
+Linux@Practical:~/Downloads$ sar -f /var/log/sysstat/sa -s 08:00:00 -e 10:00:00 -u
+sa02   sa03   sa04   sa05   sa07   sa28   sa29   sa30   sa31   sar02  sar03  sar04  sar27  sar28  sar29  sar30  
+Linux@Practical:~/Downloads$ sar -f /var/log/sysstat/sa31 -s 08:00:00 -e 10:00:00 -u
+Linux 6.8.0-31-generic (Practical) 	05/31/2024 	_x86_64_	(8 CPU)
 
+09:25:40 AM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+09:30:06 AM     all      1.63      0.00      0.78      0.05      0.00     97.54
+09:40:02 AM     all      0.98      0.00      0.60      0.02      0.00     98.40
+09:50:02 AM     all      1.66      0.00      0.78      0.08      0.00     97.47
+Average:        all      1.38      0.00      0.71      0.05      0.00     97.86
 
 
 =============================================================================================================================
@@ -591,8 +643,14 @@ Network tools
 Ping:
 ping <options> <address>/<ip>
 traceroute	
-netstat:
+netstat: Alternate name/command now is 'ss'
 netstat <options> 
+netstat 
+ss -4 
+ss -6 
+ss -ant | grep 443
+
+
 DNS 
 host
 Mtr
@@ -601,6 +659,8 @@ nmcli
 nmtui ==> GUI network configuration. 
 tcpdump 
 sar -n DEV 2 10  -- to display network throughtput every 2 seconds for 20 seconds to detect network issue. 
+
+
 
 
 
@@ -696,51 +756,85 @@ while
 for
 
 
-Linux Structure. 
-
-                   | ---- /bin/         [Essential User Command Binaries]
-                   | 
-                   | ---- /boot/        [Files of the boot loader]
-                   |     
-                   |---- /dev/          [Hardware Device files]
-                   |
-                   |---- /media/        [Removable Media]
-                   |
-                   |---- /mnt/          [Mounted FileSystem]
-                   |
-                   |---- /opt/          [Add on Application software package]
-                   |                    
-                   |---- /sbin/         [System Binary]
-                   |
-  / (root)---------|---- /srv/          [Service Data]
-                   |
-                   |---- /proc/         [Process Information]
-                   |
-                   |---- /home/         [Home Directory]
-                   |
-                   |---- /etc/          [Configuration Files]
-                   |
-                   |---- /var/          [Variable Files]
-                   |
-                   |---- /lib/          [System Libraries]
-                   |
-                   |---- /tmp/          [Temporary files]
-                   |
-                   |---- /usr/          [User Programs]
-
-
-
-
 =============================================================================================================================
-System Check commands:
+OS/Kernel and System commands:
 ----------------------
-uname --
+uname -- display information about current operating system and hardware.
 --------
+$ uname           : Displays the kernel name (e.g., "Linux").
+$ uname -s        : Displays the kernel name (same as just running $ uname).
+$ uname -n        : Displays the network node hostname.
+$ uname -r        : Displays the kernel release number.
+$ uname -v        : Displays the kernel version.
+$ uname -m        : Displays the machine hardware name (e.g., "x86_64").
+$ uname -p        : Displays the processor type (e.g., "x86_64").
+$ uname -i        : Displays the platform or hardware interface (e.g., "unknown").
+$ uname -o        : Displays the operating system name (e.g., "GNU/Linux").
+$ uname -a        : Displays all the above information in a single line.
 
-lsb_release:
+
+lsb_release       : Display information about the linux      
+------------
+$ lsb_release -h,       : show this help message and exit
+$ lsb_release -v,       : show LSB modules this system supports
+$ lsb_release -i,       : show distributor ID
+$ lsb_release -d,       : show description of this distribution
+$ lsb_release -r,       : show release number of this distribution
+$ lsb_release -c,       : show code name of this distribution
+$ lsb_release -a,       : show all of the above information
+$ lsb_release -s,       : show requested information in short format
+eg. 
+Linux@Practical:~$ lsb_release -a
+No LSB modules are available.
+Distributor ID:	Ubuntu
+Description:	Ubuntu 24.04 LTS
+Release:	24.04
+Codename:	noble
+
+Linux@Practical:~$ lsb_release -as
+No LSB modules are available.
+Ubuntu
+Ubuntu 24.04 LTS
+24.04
+noble
+
+------------------------------------------------------------
+cat /etc/os-release :  -- standard file in linux that provides the information about the operating system.
+-------------------
+Linux@Practical:~$ cat /etc/os-release
+PRETTY_NAME="Ubuntu 24.04 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=noble
+LOGO=ubuntu-logo
+
+hostnamectl - Display Comprehensive information about the Linux distribution.
+-------------------
+Linux@Practical:~$ hostnamectl
+ Static hostname: Practical
+       Icon name: computer-laptop
+         Chassis: laptop 💻
+      Machine ID: 11111111111111111111111111111111
+         Boot ID: 22222222222222222222222222222222
+Operating System: Ubuntu 24.04 LTS                
+          Kernel: Linux 6.8.0-31-generic
+    Architecture: x86-64
+ Hardware Vendor: HP
+  Hardware Model: HP Laptop 14s-dq2xxx
+Firmware Version: F.33
+   Firmware Date: Wed 2023-10-04
+    Firmware Age: 8month 3d
 
 
-cat /etc/os-release 
+
 
 df
 
@@ -750,7 +844,55 @@ free
 
 systemctl 
 
+pwdx :
+------
+eg. : 
+$ top           == to find out the PID
+   PID USER  :
+   ------    PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND                                      
+  82514 Linux     20   0 1132.0g 254172 128688 S  15.9   3.3   6:14.34 chrome                                       
+   3249 Linux     20   0   40.9g 239220  75236 S   1.7   3.1  64:19.87 skypeforlinux                                
+   2662 Linux     20   0 2279684  35448  16764 S   1.3   0.5  20:46.74 gnome-software       
 
+to find out the pwd of PID 82514, 
+Linuxt@Practical:~/Downloads$ pwdx 82514
+82514: /proc/4246/fdinfo
+
+lsmod : --- List of Kernal modules that are currently loaded.
+-------
+$ lsmod 
+
+lshw  -- list of hardware components of your system.
+------------------
+$ lshw -short       -- will display brief summary of the hardware components.
+Linux@OPractical:~/Downloads$ lshw -short
+WARNING: you should run this program as super-user.
+H/W path     Device        Class          Description
+=====================================================
+                           system         Computer
+/0                         bus            Motherboard
+/0/0                       memory         8064MiB System memory
+/0/1                       processor      11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz
+/0/100                     bridge         11th Gen Core Processor Host Bridge/DRAM Registers
+/0/100/2     /dev/fb0      display        TigerLake-LP GT2 [Iris Xe Graphics]
+/0/100/4                   generic        TigerLake-LP Dynamic Tuning Processor Participant
+/0/100/8                   generic        GNA Scoring Accelerator module
+/0/100/e                   storage        Volume Management Device NVMe RAID Controller
+/0/100/14                  bus            Tiger Lake-LP USB 3.2 Gen 2x1 xHCI Host Controller
+/0/100/14.2                memory         RAM memory
+
+lspci   --- display all plug and play or PCI(peripheral Component Interconnet) devices connected to system.
+---------------
+$ lspci -v            -- display detail information about each PCI device
+
+
+lsusb  - list all usb devices connected to the system.
+
+lsblk           - list information about all available block devices, including disks, partitions and logical volumes.
+$ lsblk -f      -- display the file system informaton for each block device.
+
+dmidecode        -- display detailed information about the system's hardware as reported by BIOS.
+# dmidecode -t memory       -- display information about the system memory modules.
 
 
 
