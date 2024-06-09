@@ -734,7 +734,20 @@ var/log/cups
 Network configuration
 ---------------------
 
-Ip 
+ip :  Internet Protocol. 
+------------------------
+$ ip add        -- display the IP address with assgined interfaces. 
+$ ip route      -- display the route 
+$ ip addr add 192.168.1.10/24 dev eth0      -- add IP address to interface
+$ ip link set dev eth0 mtu 1500             -- Set interface MTU.
+$ ip neigh                                  -- to display neighbor cache entries.
+$ ip route add 10.0.0.0/24 via 192.168.1.10     -- to add a static route
+$ ip link set dev eth0 up                   -- to bring enterface up.
+$ ip link add link eth0 name vlan10 type vlan id 10   -- to create a vlan interface
+$ ip add show eth0                          -- to display detail information about an interface. 
+$ ip -s link show eth0                      -- to show statictics for an interface. 
+
+
 
 Ifconfig
 
