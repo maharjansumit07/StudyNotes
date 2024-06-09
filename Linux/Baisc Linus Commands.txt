@@ -21,11 +21,67 @@ $ sudo hostnamectl set-hostname "new_hostname" --static
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 Package manager			
-ubuntu/mint         -- apt, snapd, flatpak, software center.
+ubuntu/mint         -- apt, snapd, flatpak, software center, dpkg, pip, aptitude
 Debian              -  apt,aptitude, snap, flatpak,apt-get,apt-cache
 centos/rocky linux  -- dnf , yum		
 fedora              - yum, dnf		
 arch                - pamac, yay, paru,, flatpak		
+
+=============================================================================================================================
+
+Package management:
+------------------
+apt/apt-get  :  Advanced Packet Tool (APT) -- a linux utility to handle the installation, update, and removal of software packages.
+---------------
+$ sudo apt update
+$ sudo apt upgrade
+$ sudo apt install software-package-name
+$ sudo apt remove software-package-name      -- remove a pakage not configuraiton files.
+$ sudo apt purge software-package-name       --remove a pacakge along with its configuration files. 
+$ apt list --installed                      -- lists all installed packages on the system. 
+$ apt search package-name
+$ apt show package-name
+$ apt-cache depends package-name            -- lists the dependencies for the package.
+
+dpkg :  Package management tool, and is a lower-level tool that operates directly on '.deb' package file.
+------
+$ sudo dpkg -i package-name.deb         -- install downloaded '.deb' package. 
+$ sudo dpkg -r package-name             -- remove package
+$ sudo dpkg -P pacakge-name             -- purge package, remove along with configuraiotn file.
+$ dpkg -l                               -- List installed packages
+$ dpkg -s package-name                  -- check package status.
+$ dpkg -L package-name                  -- List package files
+$ sudo dpkg-reconfigure package-name    -- reconfigure an installed package.
+
+snap: a package management system. It allows the distribution and installaiton of software packages called 'snaps' that are containerized and works accoss different linux distribution. 
+-----
+
+Install and enable snap.
+------------------------
+$ sudo apt install snapd
+$ sudo systemctl enable --now snapd.socket    -- to enable snapdd services.
+$ sudo snap install core                      -- recommended, as many snaps depends on this. 
+$ sudo snap install package-name              -- to install package. 
+$ snap list                                   -- to display all installed packages by snap.
+$ sudo snap remove package-name               -- to remove package. 
+
+Commonly used commands for snap as below;
+Basics: find, info, install, remove, list
+          ...more: refresh, revert, switch, disable, enable, create-cohort
+          History: changes, tasks, abort, watch
+          Daemons: services, start, stop, restart, logs
+      Permissions: connections, interface, connect, disconnect
+    Configuration: get, set, unset, wait
+      App Aliases: alias, aliases, unalias, prefer
+          Account: login, logout, whoami
+        Snapshots: saved, save, check-snapshot, restore, forget
+           Device: model, remodel, reboot, recovery
+     Quota Groups: set-quota, remove-quota, quotas, quota
+  Validation Sets: validate
+        ... Other: warnings, okay, known, ack, version
+      Development: validate
+
+
 =========================================================================================================================================
 File Types   = the file types are defied by their first character or letter. 
 
@@ -110,13 +166,17 @@ rm  ==> Remove command, used for removing or deleting files and directories.
 mkdir ==> Make Directory, is used to Create a new directory or folder. 
 rmdir ==> remove directory, to remove directory. 
 history ==> to view and manage the command history. 
+mv == to move or in linux to rename file. 
+
 
 Editors:
+------------
 vi  => vim editor to edit the files. [!Note] Always user 'sudo' if you are not logged in as 'root' user. 
 Nano => simple text editor, and very friendly. 
 gedit => Graphical Text Editor as part of GNOME desktop environment.
 
 View data within the file.
+---------------------------
 cat  => a fundamental command that is used for various text view or manipulations tasks.
 less => similar to cat , but used to view the contents of text files or the output of other commands. 
 more => similar to cat, but used to view the contents of text files or the out of other commands one page at a time.
@@ -124,6 +184,16 @@ cd ==> Change Directory, to navigate to the file system or other directory.
 $ cd (enter)      or cd ~/    or cd ~
  this is take directly to home directory.
 
+head  == to display  the first few lines, default 10 lines, of a file or the output from the command.
+------
+$ head /path/to/file
+$ head -20 /path/to/file    or,  $ head -n 20 /path/to/file  -- to display till line no. 20. 
+
+tail == To display the last few line, deafult 10 lines, of a file or the output from the coammd. 
+-------
+
+$ tail /path/to/file
+$ tail -4 /path/to/file         -- to display the last 4 lines for the file.
 
 Relative Path ==> refers to a way of specifying the location  of a file or directory that is relative to the current working directory.
 directory
@@ -163,6 +233,8 @@ now to view the file, we will be looking from root to home directory going int u
 Linux_Practical:~$ ls /home/user/test/test1/test2/
 2ndtest.txt
 
+
+pwd:
 -----------------------------------------------------------------------------------------------------------------------------------
 External search within the file.
 grep => (Global Regular Expression Print) a command line tool for searching and filtering text. It is widely used in shell scirpts system administration tasks, and data processing workflows. 
@@ -471,7 +543,7 @@ $ lsblk   -- to list all block device, including new drivers
 or, else the new drive will be found on /dev/sdb or dev/nvme0n1
 
 $ sudo mkdir /mnt/newdrive              --create a mount point for the new drive
-$ sudo mount /dev/sdb1 /mnt/newdrive    --mount hte new drive to mount point.
+$ sudo mount /dev/sdb1 /mnt/newdrive    --mount the new drive to mount point.
 $ df -h                                 -- verify the mount, this will show the new drive mounted at /mnt/newdrive
 $ sudo nano /etc/fstab                  
 /dev/sdb1 /mnt/newdrive ext4 default 0 0 
@@ -529,7 +601,7 @@ PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
 
 $ top -n 5              -- to run the top command 5 times and exit.
 $ top -d 5              -- to update the display in every 5 seconds. 
-
+$ top -b -n 1 > system_report.txt  -- the system_report.txt will have the output of top in the file. 
 --------------------------------------------------------------------
 
 vmstat:   -- to display detailed information about system resource utilization, includeing cpu, memory , disk and swap usage.
@@ -569,39 +641,69 @@ Linux 6.8.0-31-generic (Practical) 	05/31/2024 	_x86_64_	(8 CPU)
 09:50:02 AM     all      1.66      0.00      0.78      0.08      0.00     97.47
 Average:        all      1.38      0.00      0.71      0.05      0.00     97.86
 
-
-=============================================================================================================================
-
-Package management
-
-apt/apt-get
-Dpkg
+====================================================================================================================
 
 Task scheduling
 ---------------
-At :
+At :  used to schedule a command or script to be executed. It is intended for one-time task. 
 -----
 at <time>
 HH:MM(am/pm) DD.MM.YY YYYY-MM-DD MM/DD/[cc]YY MMDD
 -now +num period minutes hours days weeks
+eg.
+$ echo 'command' | at time
+$ echo "ls -l /home/user" | at 15:00
 
-Cron:
+Enter Interactve Mode:
+$ at time
+eg.
+at 15:00
+at> ls -l /home/user
+at> <Ctrl+D>
+
+Specific Data and time
+$ at 10:30 AM tomorrow
+$ at 2:00 PM 06/10/2024
+
+named times.
+eg. at midnight
+at noon
+
+$ atq               -- List scheduled jobs 
+$ at -c job_number  -- display details of a specific job. 
+--------------------------------------------------------------
+
+Cron:    - time-based job scheduler allowing users to schedule commands or scritps to run periodically at fixed date, time or intervals. 
 ------
+  *     *      *     *       * 
 <min> <Hour> <DoM> <Month> <DoW> <Command/Script>
 [00-59] [00-23]  [1-31]    [1-12]    [0-6/1-7] 
 					     
 * = any
-/ = frequency. */N, A-B/N 
+/ = frequency. */N, A-B/N   eg. /5 for every 5 minutes.
 , = multiple. A,B,C
 - = range. A-B
 
-#crontab
+* * * * * command_to_run
+│ │ │ │ │
+│ │ │ │ └─ Day of the week (0-6, Sunday is 0)
+│ │ │ └─── Month (1-12)
+│ │ └───── Day of the month (1-31)
+│ └─────── Hour (0-23)
+└───────── Minute (0-59)
 
+#crontab  - 
+---------
+$ crontab -e                -- Edit Users cron table
+$ crontab -l                -- view or list out cron table for the current user.
+$ crontab -e -u username    -- edit cron table for a specific users. 
+$ 30 2 * * * /path/to/script.sh     -- cron job to the cron table using this command.
+$ 0 * * * * /path/to/script.sh      -- to run script every hour.
+$ 0 0 * * * /path/to/script.sh      -- to run script every midnight.
+$ */15 * * * * /path/to/script.sh   -- to run script every 15 minutes.
+$ 0 0 1,15 * * /path/to/script.sh   -- to run on specific date i.e. 1st and 15th day.
 
-head
-Accessing logs with tail
-
-tail <options> <logfile>
+===========================================================================================================================
 
 Logs location: /var/log
 
@@ -628,7 +730,9 @@ var/log/cups
 /var/log/btmp
 == stores failed login attempts. $lastb
 
+=================================================================================================================
 Network configuration
+---------------------
 
 Ip 
 
@@ -697,6 +801,7 @@ kill -9 $(lsof -t -u <username>) ==> Kill all activities of a specific user
 Managing Services
 Systemd
 Systemctl
+sudoers
 
 "/usr/lib/systemd/system"
 "/lib/systemd/system"
@@ -746,6 +851,7 @@ Downloading files using wget
 
 Shell Scripting.
 comment
+
 she-bang, interpreter's path
 commands
 
@@ -757,7 +863,7 @@ for
 
 
 =============================================================================================================================
-OS/Kernel and System commands:
+OS/Kernel/Hardware info commands:
 ----------------------
 uname -- display information about current operating system and hardware.
 --------
@@ -833,16 +939,15 @@ Firmware Version: F.33
    Firmware Date: Wed 2023-10-04
     Firmware Age: 8month 3d
 
+lscpu: 
 
 
 
-df
-
+df - 
+---
 du 
 
 free
-
-systemctl 
 
 pwdx :
 ------
@@ -903,10 +1008,7 @@ systemctl -type = service
 diff file1 file2
 cu -l /dev/ttyUSB0 -s 9600      == Access console 
 
-> -- to copy and paste result to specified folder. 
-eg. 
-$ top -b -n 1 > system_report.txt
-the system_report.txt will have the output of top in the file. 
+
 
 
 
