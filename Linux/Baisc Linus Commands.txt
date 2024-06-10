@@ -746,16 +746,103 @@ $ ip link set dev eth0 up                   -- to bring enterface up.
 $ ip link add link eth0 name vlan10 type vlan id 10   -- to create a vlan interface
 $ ip add show eth0                          -- to display detail information about an interface. 
 $ ip -s link show eth0                      -- to show statictics for an interface. 
+$ sudo ip link set eth0 up / down           -- enable/disable interface.
+--------------------------------------------------------------------------------------
+Ifconfig : interface Configuration, used to configure and display network interface parameters.
+---------
+$ ifconfig 
+$ ifconfig  eth0               -- display specific interface
+$ sudo ifconfig eth0 up        -- to enable network interface
+$ sudo ifconfig eth0 down      -- to disable network interface
+$ sudo ifconfig eth0 192.168.1.1    -- to assign IP address
+$ sudo ifconfig eth0 netmask 255.255.255.0      -- to change netmask
+$ sudo ifconfig eth0:0 192.168.1.2      -- to assign secondary IP address.
+$ ifconfig -s       -- to display interface statics.
+eg. 
+Linux@Practical:$ ifconfig -s
+Iface      MTU    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg
+lo              65536    26944      0      0 0         26944      0      0      0 LRU
+virbr0           1500        0      0      0 0             0      0      0      0 BMU
+wlo1             1500  6336535      0    117 0        718207      0      0      0 BMRU
 
+--------------------------------------------------------------------------------------
+Netplan:  : --network configuration which is created in YAML.
 
-
-Ifconfig
-
-Netplan
-etc/netplan/
+----------
+$ sudo netplan get             -- will display all saved connected networks with info and password
+$ sudo netplan status          -- will dislay mac address ip , dns and route along with subnet. 
+$ sudo netplan try             -- validate syntax or try to apply a new neetlan config , with automatic rollback 
+$ sudo netplan apply           -- to apply changes.
+$ etc/netplan/                   -- Direcgtory where YAML configuration files are stored. 
 sudo netplan generate
-sudo netplan apply
 
+$ sudo journalctl -u NetworkManager     -- to check the status and logs related to netplan.
+
+==== Basic Network configuration in YAML file. -- For Static IP
+
+#####
+
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth0:
+      dhcp4: true
+    eth1:
+      addresses:
+        - 192.168.1.100/24
+      gateway4: 192.168.1.1
+      nameservers:
+        addresses:
+          - 8.8.8.8
+          - 8.8.4.4
+
+#####
+
+==== Getting IP from DHCP server.
+
+#####
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth0:
+      dhcp4: true
+    eth1:
+      dhcp4: true
+#####
+
+to apply changes, 
+$ sudo netplan apply
+
+------------------------------------------------------------------------------------------
+networkctl:  -- command line utility with systemd as the init system to inspect and manage network , interface and connection settings. 
+-----------
+$ networkctl
+eg. 
+Linux@Practical/etc/netplan$ networkctl
+IDX LINK   TYPE     OPERATIONAL SETUP    
+  1 lo     loopback carrier     unmanaged
+  2 wlo1   wlan     routable    unmanaged
+  3 virbr0 bridge   no-carrier  unmanaged
+
+$ networkctl status     -- will display IP and with logs and link up and down record.
+$ networkctl status wlo1    -- will display about the interface  details such as module, MTU, drivers and more.
+$ sudo networkctl up wlo1   -- to enable wlo1  (Wireless) 
+$ sudo networkctl reload    -- reload .network and .netdev files
+-----------------------------------------------------------------------------------------------------------------
+netstat:     : display network connections, routing table, interface statistics, masquerade connections and multcast memberships.
+----------
+$ netstat -a        : display all interface
+$ netstat -l        : display listening and established connections
+$ netstat -t        : display all TCP connections
+$ netstat -u        : display all UDP connections
+$ netstat -i        : display network interfaces and statistics
+$ netstat -r        : display routing table
+$ netstat -p        : display PID and program name 
+$ 
+
+-------------------
 Network tools
 Ping:
 ping <options> <address>/<ip>
