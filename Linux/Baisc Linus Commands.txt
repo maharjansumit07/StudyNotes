@@ -406,7 +406,7 @@ usermod -L username                            ==> to lock or disable the user a
 usermod -l new_name existing_username          ==> to change the username.
 
 usermod -d /new/home/directory                ==>  To change users Home directory
-
+usermod -d /new/home/direcotry -m username    == to change home director for specific user.
 usermod -L username  or usermod -U username   ==> to lock the user. 
 
 usermod -e YYYY-MM-DD username                ==> to set the expire date
@@ -529,8 +529,8 @@ host:
 host www.example.com         ==> it will display address and mail primary and secondary MX server.
 host -a www.example.com      ==> will display detail of A,AAA, MX and NS information.
 host -C google.com           ==> to display the nameservers IP and SOA record
-host -d sumaharjan.com       ==> to display nameservers and MX record.
-
+host -d google.com           ==> to display nameservers and MX record.
+host -t soa google.com       == to display soa record.
 =========================================================================================================================================
 mount    ---- mount a filesystem
 ------
@@ -731,8 +731,38 @@ var/log/cups
 == stores failed login attempts. $lastb
 
 =================================================================================================================
-Network configuration
+
+
+Network Tools/Commands
 ---------------------
+Ping:       -- to test the reachability of a host on an IP networking and to measure the round-trip time for messages sent from the source to Destination.
+------
+$ ping google.com 
+$ ping -c 5 google.com      == to send ICMP pagckage to defined number.
+$ ping -i 0.5 google.com    == to wait for specifed number of seconds.
+$ ping -s 1000 google.com   == to send packets with 1000 bytes of data.
+$ ping -t 64 google.com     == to set the Time to leave for packets.
+$ ping -I eth0 google.com   == to ping by choosing specific interface.
+
+traceroute :    = to trace the route that packets take from local host to a specified destination hosts.
+--------------	
+$ traceroute www.example.com
+$ traceroute -n -m 15 google.com   == trace google with maximum 15 hops and does not resolve hostname.
+$ traceroute -f 5 example.com      == trace starting from TTL5 (skipping first 4 hops)
+$ traceroute -w 2 8.8.8.8          == trace with a timeout of 2 seconds for each probe.
+$ traceroute -T -p 80 example.com  == trace with TCP SYN on port 80.
+ 
+mtr :   Network diagnostic tools with combination of traceroute and ping into single command.
+------
+$ mtr google.com 
+$ mtr -c 10 google.com      == will send 10 packets to each hops along the route to google.com
+$ mtr -n google.com         == will display ip address instead of hostname.
+$ mtr -s 0.5 google.com     == will send prove packets to google.com to 0.5 seconds, good for frequent monitoring. 
+$ mtr -r google.com         == it does not resolve hostnames.
+$ mtr -i eth0 google.com    == to specify source interface address
+$ mtr -d google.com         == to enable debugging output.
+
+-----------------------------------------------------------------------------------------------------------------
 
 ip :  Internet Protocol. 
 ------------------------
@@ -832,7 +862,7 @@ $ sudo networkctl up wlo1   -- to enable wlo1  (Wireless)
 $ sudo networkctl reload    -- reload .network and .netdev files
 -----------------------------------------------------------------------------------------------------------------
 netstat:     : display network connections, routing table, interface statistics, masquerade connections and multcast memberships.
-----------
+----------    -- Alternate name now is 'ss'
 $ netstat -a        : display all interface
 $ netstat -l        : display listening and established connections
 $ netstat -t        : display all TCP connections
@@ -840,32 +870,38 @@ $ netstat -u        : display all UDP connections
 $ netstat -i        : display network interfaces and statistics
 $ netstat -r        : display routing table
 $ netstat -p        : display PID and program name 
-$ 
+$ netstat -s        : display summary staticstics for each protocol. 
+$ netstat -ant      : display all tcp connection with ip address and port no. 
+$ netstat -tuln     : display all listening TCP and UDP ports
+
+$ ss -4             : Display all IPv4 sockets. 
+$ ss -6             : Display all IPv6 sockets.
+$ ss -ant | grep 443
 
 -------------------
-Network tools
-Ping:
-ping <options> <address>/<ip>
-traceroute	
-netstat: Alternate name/command now is 'ss'
-netstat <options> 
-netstat 
-ss -4 
-ss -6 
-ss -ant | grep 443
+List Network Connections and Sockets  --- more details below.
+
+lsof -i             ==> List all open network connections
+lsof -1:80          ==> List open TCP/UDP connections with port 80
+lsof -i tep:1-1024  ==> List open TCP connections with a given port range
+lsof -i-n           ==> List open network connections with no reverse DNS lookup
+lsof -i-n -P        ==> List open network connections with no port name conversion
+lsof -i6            ==> List open IPv6 network connections (-i4 for IPv4)
+-----------------------------------------------------------------------------------------------------------
+
+nmtui: text-based user interface  (tui) for managing network connections using Network Manager Service.
+------    -- Graphical Network Configuration.
+$ nmuti
+--------------------
+
+nmcli:  
+-------
 
 
-DNS 
-host
-Mtr
-mtr <options> <domain/IP address>	
-nmcli
-nmtui ==> GUI network configuration. 
+
+
 tcpdump 
 sar -n DEV 2 10  -- to display network throughtput every 2 seconds for 20 seconds to detect network issue. 
-
-
-
 
 
 -----------------------------------------------------------------------------------------------------
@@ -882,15 +918,6 @@ lsof +D /tmp        ==> List all files that have been opened under /tmp
 lsof +L1            ==> List files deleted but still held open by running processes
 lsof -c <command>   ==> List open files by processes executing <command>
 lsof -d mem         ==> List all memory-mapped files
-
-List Network Connections and Sockets
-
-lsof -i             ==> List all open network connections
-lsof -1:80          ==> List open TCP/UDP connections with port 80
-lsof -i tep:1-1024  ==> List open TCP connections with a given port range
-lsof -i-n           ==> List open network connections with no reverse DNS lookup
-lsof -i-n -P        ==> List open network connections with no port name conversion
-lsof -i6            ==> List open IPv6 network connections (-i4 for IPv4)
 
 other uses
 lsof -U             ==> List open unix domain sockets
