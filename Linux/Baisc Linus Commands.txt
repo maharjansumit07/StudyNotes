@@ -954,11 +954,10 @@ tcpdump : a command-line packet analyzer used to capture and analyze network tra
 # tcpdump -l > txt & tail -f txt      == to capture all packages 'l' will write its output to standard output in txt file, '-f' will keep on listening and tail will display last 10 lines.
 # tcpdump -i any arp                  == to capture arp, mac address for all interface. 
 
+Again using SAR for Network check
 sar :  colletct, report or save system activity information.
 ------
-
-
-sar -n DEV 2 10  -- to display network throughtput every 2 seconds for 20 seconds to detect network issue. 
+$ sar -n DEV 2 10  -- to display network throughtput every 2 seconds for 20 seconds to detect network issue. 
 
 
 -----------------------------------------------------------------------------------------------------
