@@ -158,7 +158,7 @@ Linux Structure.
 
 =================================================================================================================
 
-File And Direcotry Management
+File And Directory Management
 -----------------------------
 pwd => to know the current location.
 ls =>  to list the file
@@ -744,9 +744,8 @@ var/log/cups
 
 =================================================================================================================
 
-
 Network Tools/Commands
----------------------
+----------------------
 Ping:       -- to test the reachability of a host on an IP networking and to measure the round-trip time for messages sent from the source to Destination.
 ------
 $ ping google.com 
@@ -781,8 +780,11 @@ ip :  Internet Protocol.
 $ ip add        -- display the IP address with assgined interfaces. 
 $ ip route      -- display the route 
 $ ip addr add 192.168.1.10/24 dev eth0      -- add IP address to interface
+$ ip link show eth0
 $ ip link set dev eth0 mtu 1500             -- Set interface MTU.
 $ ip neigh                                  -- to display neighbor cache entries.
+$ ip neighbour show/add/change/replace/delete
+$	ip route show/add/change/replace/delete/get/
 $ ip route add 10.0.0.0/24 via 192.168.1.10     -- to add a static route
 $ ip link set dev eth0 up                   -- to bring enterface up.
 $ ip link add link eth0 name vlan10 type vlan id 10   -- to create a vlan interface
@@ -797,6 +799,7 @@ $ ifconfig  eth0               -- display specific interface
 $ sudo ifconfig eth0 up        -- to enable network interface
 $ sudo ifconfig eth0 down      -- to disable network interface
 $ sudo ifconfig eth0 192.168.1.1    -- to assign IP address
+$ sudo ifconfig eth0 192.168.1.1 netmask 255.255.255.0 broadcast 192.168.1.255
 $ sudo ifconfig eth0 netmask 255.255.255.0      -- to change netmask
 $ sudo ifconfig eth0:0 192.168.1.2      -- to assign secondary IP address.
 $ ifconfig -s       -- to display interface statics.
@@ -809,15 +812,13 @@ wlo1             1500  6336535      0    117 0        718207      0      0      
 
 --------------------------------------------------------------------------------------
 Netplan:  : --network configuration which is created in YAML.
-
 ----------
 $ sudo netplan get             -- will display all saved connected networks with info and password
 $ sudo netplan status          -- will dislay mac address ip , dns and route along with subnet. 
 $ sudo netplan try             -- validate syntax or try to apply a new neetlan config , with automatic rollback 
 $ sudo netplan apply           -- to apply changes.
 $ etc/netplan/                   -- Direcgtory where YAML configuration files are stored. 
-sudo netplan generate
-
+$ sudo netplan generate
 $ sudo journalctl -u NetworkManager     -- to check the status and logs related to netplan.
 
 ==== Basic Network configuration in YAML file. -- For Static IP
@@ -958,7 +959,7 @@ Again using SAR for Network check
 sar :  colletct, report or save system activity information.
 ------
 $ sar -n DEV 2 10  -- to display network throughtput every 2 seconds for 20 seconds to detect network issue. 
-
+$ sar -n EDEV 2 10  -- to display the network error  and dropped packets. 
 
 -----------------------------------------------------------------------------------------------------
 lsof (List Open Files)
@@ -981,30 +982,40 @@ lsof /dev/tty1      ==> List commands/processes associated with /dev/tty1
 kill -9 $(lsof -t -u <username>) ==> Kill all activities of a specific user
 -----------------------------------------------------------------------------------------------------
 
-Managing Services
-Systemd
-Systemctl
-sudoers
+Firewall: -- Dynamic Firewall Management Tool with support for network/firewall zones that define the trust level of network connections or interfaces.
+-----------
+in Centos --- firewall-cmd 
+in Ubuntu --- ufw  (Uncomplicated Firewall) 
 
-"/usr/lib/systemd/system"
-"/lib/systemd/system"
-"/etc/systemd/system"
+$ sudo ufw statu        == to check the status 
+$ sudo ufw allow ssh    == to allow ssh 
+$ sudo ufw allow 443/tcp    == to allow port 443, https with tcp 
+$ sudo ufw deny 80/tcp      == to deny acces to  port 80 with tcp.
+$ sudo ufw delete deny 80/tcp   == to delete the rule.
+$ sudo ufw reject http
+$ sudo ufw limit 80/tcp
 
-
-
-Firewall:
-ufw  => 
-allow, 
-deny, 
-reject, 
-limit, 
-show, 
-reset, 
-reload,
-disable
-
-
-
+$ sudo ufw enable/disable
+$ sudo ufw deny from <source> to <dest> port <port>
+$ sudo ufw limit 80/tcp
+$ sudo ufw allow out on <ifname> to any port <port> proto tcp
+$ sudo ufw deny in on <ifname> from any <port> proto tcp
+$ sudo ufw delete allow from …
+$ sudo ufw status numbered
+$ sudo ufw delete 1
+$ sudo ufw app list
+$ sudo ufw allow "<app-profile>"
+$ sudo ufw reload         == after any changes made, to load the new changes.
+------------------------------------------------------------------------------------------------------------------------------------------
+iptables: Administration tool for IPV4 and IPv6 packet filtering and NAT.
+----------
+$ sudo iptables -L          -- to list out the rules.
+$ sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT        -- to add rule to allow ssh connection.
+$ sudo iptables -A INPUT -j DROP                            -- to drop all incoming traffic.
+$ sudo iptables -A OUTPUT -p tcp --dport 80 -j ACCEPT       -- to add a rule to allow outgoinh http connection.
+$ sudo sh -c "iptables-save > /etc/iptables/rules.v4"       -- to save the current rules.
+$ sudo service iptables save                                -- to save the current rules.
+==========================================================================================================================================
 Remote login using SSH
 Using user and passwd
 $ ssh <username>@<host-address>:<port>
@@ -1029,20 +1040,6 @@ Extract an archive
 $ tar -xvf
 
 Downloading files using wget
-
-
-
-Shell Scripting.
-comment
-
-she-bang, interpreter's path
-commands
-
-logical operations
-if
-case
-while
-for
 
 
 =============================================================================================================================
@@ -1182,13 +1179,72 @@ $ lsblk -f      -- display the file system informaton for each block device.
 dmidecode        -- display detailed information about the system's hardware as reported by BIOS.
 # dmidecode -t memory       -- display information about the system memory modules.
 
-
-
 =============================================================================================================================
+Managing Services
+Systemd
+Systemctl
+sudoers
+
+Managing services
+Systemd- systemd initializes the Linux system after boot process
+- units and unit files
+- handles the targets - equivalent to runlevels -, which are a combination of units 			"working together" to produce a certain environment
+- units:
+	 control services, mounts, swap spaces, sockets
+- unit files:
+	contains different parameters and data about the units - services, devices, mount points
+
+systemctl:
+- unit:
+	systemctl list-units (--type=service --state=running)
+- unit-files:
+	list-unit-files (--type=service)
+- Service:
+	start, stop, restart, reload, status, mask, unmask, is-enabled, is-failed, cat, list-dependencies, show, edit --full,
+- Target:
+	get-default, isolate <target>, set-default
+
+
+
+
+"/usr/lib/systemd/system"
+"/lib/systemd/system"
+"/etc/systemd/system"
+
+Creating a unit file
+[Unit]
+Description=example
+After=
+
+[Service]
+Type=simple forking oneshot dbus notify idle
+WorkingDirectory=
+Restart=
+RestartSec=
+ExecStart=
+ExecStop=
+
+[Install]
+WantedBy=multi-user.target
+
+
+Shell Scripting.
+comment
+
+she-bang, interpreter's path
+commands
+
+logical operations
+if
+case
+while
+for
+
 .bashrc
 getent -- examples
 systemctl -type = service 
 diff file1 file2
+cmp file1 file2
 cu -l /dev/ttyUSB0 -s 9600      == Access console 
 
 
