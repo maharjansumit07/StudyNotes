@@ -494,8 +494,20 @@ last -p     == display who are present at the specific time.
 last -w     == display full user and domain names
 last -xr    == display system shut down enteries and run level changes.
 
-lastb       == to view bad login attempts
+lastb       == to view bad login attempts but needs root access.
+# lastb 
 ------------------------------------------------------------------
+
+lslogins - display information about the known users in the system. 
+----------
+$ lslogins 
+$ lslogins -L           == display the list of users, ID and last login time. 
+$ lslogins -f           == display login fail with userId and time 
+$ lslogins -e           == display user export-able report.
+$ lslogins -s           == display system accounts
+$ lslogins -u           == display user accounts
+$ lslogins username     == display users accounts in detail with home direcotry, shell, GID, login times, processes running. 
+
 ====================================================================================================================================
 
 DNS troubleshooting commands
@@ -877,7 +889,9 @@ $ netstat -tuln     : display all listening TCP and UDP ports
 $ ss -4             : Display all IPv4 sockets. 
 $ ss -6             : Display all IPv6 sockets.
 $ ss -ant | grep 443
-
+$ ss -a 
+$ ss -t             : display all tcp connection 
+$ ss -e             : display  detailed socket information.
 -------------------
 List Network Connections and Sockets  --- more details below.
 
@@ -892,15 +906,58 @@ lsof -i6            ==> List open IPv6 network connections (-i4 for IPv4)
 nmtui: text-based user interface  (tui) for managing network connections using Network Manager Service.
 ------    -- Graphical Network Configuration.
 $ nmuti
---------------------
+------------------------------------------------------------------------------------------------------------
 
-nmcli:  
+nmcli:  -- Command-line tool for managing network connections using Network Manager.
 -------
+$ nmcli               == will display Nework interface devices with detail IP address and MAC address.
+$ nmcli general status   == will show general network status.
+$ nmcli device        == will display the interface device name, and its state and connection.
+$ nmcli device status  == will display detailed view of interface such as its path, ip address, gateway, interface device type.
+$ nmcli connection show  == will list all network connections. 
+$ nmcli connection show "connection_name"  == dwill show detail of a specific connection
+$ nmcli connection add type ethernet con-name "new_connection" ifname eth0  == add new connection. 
+$ nmcli connection add type ethernet con-name "static_eth" ifname eth0 ipv4.addresses "192.168.1.100/24" ipv4.gateway "192.168.1.1" ipv4.dns "8.8.8.8,8.8.4.4" ipv4.method manual
+== this will add new static IP ehternet connection.
+$ nmcli connection add type ethernet con-name "dhcp_eth" ifname eth0 ipv4.method auto
+== this will create a new DHCP ethernet Connection .
+$ nmcli connection modify "connection_name" ipv4.addresses "192.168.1.100/24" ipv4.gateway "192.168.1.1"
+== this will modify an existing connection. 
+$ namcli connection detele "connection_name"    == will delete the connection .
+$ nmcli connection up "connection_name"  or down   == will active or deactivate the connection .
+$ nmcli device who eth0                 == will display the details of a specific device. 
+$ nmcli device connect/disconnect eht0  == will connect a device to network. 
+$ nmcli device wifi list                == will display all available wifi ssid with rate and signal strength. 
+$ nmcli device up (interface name)      == to enable the interface.
+$ nmcli device down (interface name)    == to disable the interface.
+$ nmcli device wifi connect "ssid" password "password"    == to connecto to wifi. 
+$ nmcli general hostanme "new_hostname"   == to change the hostname to new-hostname. 
+$ nmcli connection show --active        == display all active connections. 
 
 
+tcpdump : a command-line packet analyzer used to capture and analyze network traffic. need sudo access or root access.   
+--------
+# tcpdump -i etho   == capture packets on a specific interface.
+# tcpdump -i ehto -w capture.Participant  ==capture package and save to a file. 
+# tcpdump -r capture.pcap     == to read packets from a file. 
+# tcpdump -i eth0 tcp         == to capture only specific filler , i.e. TCP packets.
+# tcpdump -i eth0 host 192.168.1.1  == to filter by host. 
+# tcpdump -i eth0 src 192.168.1.1   == to filter by source IP. 
+# tcpdump -i eth0 dst 192.168.1.1   == to filter by Destination IP. 
+# tcpdump -i eth0 port 80           == to filter by port. 
+# tcpdump -i eth0 -s 100            == to capture the limited number of bytes. 
+# tcpdump -i eth0 net 192.168.1.0.24  == to capture from a specific Network. 
+# tcpdump -i eth0 ether proto 0x0806  == to capture with specific ethernet type. 
+# tcpdump -i eth0 tcp port 443        == to capture all HTTPS traffic.
+# tcpdump -nni any port 53            == to capture port 53(DNS) for all interface. 'any' all interface.
+== n = not to convert address to names,  n = not to convert port number to service names.
+# tcpdump -l > txt & tail -f txt      == to capture all packages 'l' will write its output to standard output in txt file, '-f' will keep on listening and tail will display last 10 lines.
+# tcpdump -i any arp                  == to capture arp, mac address for all interface. 
+
+sar :  colletct, report or save system activity information.
+------
 
 
-tcpdump 
 sar -n DEV 2 10  -- to display network throughtput every 2 seconds for 20 seconds to detect network issue. 
 
 
