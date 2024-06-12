@@ -247,6 +247,8 @@ copy files,
 cp ==> to copy files and directories.
 scp ==> Secure Copy Protocol , to securely copy files between computer over a network. 
 scp user@ip:path/to/remote /path/to/local_directory/
+eg.   $ scp file.txt username@hostname:/remote/directory/
+
 mv ==> to more a file or rename files or directories.
 -------------------------------------------------------------------------------------------------------------------------
 
@@ -906,7 +908,10 @@ lsof -i6            ==> List open IPv6 network connections (-i4 for IPv4)
 
 nmtui: text-based user interface  (tui) for managing network connections using Network Manager Service.
 ------    -- Graphical Network Configuration.
-$ nmuti
+$ nmtui
+$ nmtui-edit    -- directly taken to windows where we can select interface or ssid and edit. 
+$ nmtui-connect 
+$ nmtui-hostname    -- directly change the hostname. /
 ------------------------------------------------------------------------------------------------------------
 
 nmcli:  -- Command-line tool for managing network connections using Network Manager.
@@ -1017,18 +1022,87 @@ $ sudo sh -c "iptables-save > /etc/iptables/rules.v4"       -- to save the curre
 $ sudo service iptables save                                -- to save the current rules.
 ==========================================================================================================================================
 Remote login using SSH
+-----------------------
+-- Shecure Shell  (ssh) - protocol used to securely access and manage network devices, servers, and other systems over an unsecured network. 
+
 Using user and passwd
 $ ssh <username>@<host-address>:<port>
+$ ssh username@hostname/IP
+$ ssh -p 2222 useranme@hostname/IP      -- when port is changed, eg. 2222
 
 Using ssh private key
 $ ssh-keygen
-$ ssh-copy-id
+eg.
+Linux@Practical:~$ ssh-keygen 
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/home/Linux/.ssh/id_ed25519):  
+/home/Linux/.ssh/id_ed25519 already exists.
+Overwrite (y/n)? y
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /home/Linux/.ssh/id_ed25519
+Your public key has been saved in /home/Linux/.ssh/id_ed25519.pub
+The key fingerprint is:
+SHA256:hAW8lz77BqhIODxBkhC0NevAYt9yXMPqxMBBBVvAJ/s Linux@Practical
+The key's randomart image is:
++--[ED25519 256]--+
+|=+o=    1oo. .   |
+| .+ +  o.3  . .  |
+| . 4  . 9.   .   |
+|o o oo o .o.. .  |
+|oo o....Soo  + . |
+|.o .. ...+= o +  |
+|. .  .  .o=A .o..|
+|         o=.   o.|
+|           .  ..E|
++----[SHA256]-----+
 
+$ ssh-copy-id username@hostname/IP        -- copy the generated ssh key (Public) to the server for secure access without passwrod. First time password need then no need after that. 
+$ ssh -L local_port:destination_host:destination_port username@hostname       -- Local Port Forwarding
+$ ssh -R remote_port:localhost:local_port username@hostname                   -- Remote port Forwarding
+
+Location: at local. 
+$ ~/.ssh/config
+
+Host alias
+    HostName hostname
+    User username
+    #Port 22   
+     Port 2222       # changing port to 2222
+    IdentityFile ~/.ssh/id_rsa
+    PermitRootLogin no      # disable root login through ssh.
+
+Server Location:
+$ /etc/ssh/sshd_config
+
+==========================================================================================================================================
 Using tar for handling archive
+-------------------------------
+tar : - is a command utility used for creating, maintaining, modifying and extracting files from archive file commonly referred as tarballs or tar archives.
+- stands for Tape archive.
+
+command.
 tar <options> <files/dirs>
+
+commonly used options:
+-c: Create a new archive.
+-x: Extract files from an archive.
+-t: List the contents of an archive.
+-v: Verbose mode, show progress.
+-f: Specify the archive file name.
+-z: Compress the archive using gzip.
+-j: Compress the archive using bzip2.
+-J: Compress the archive using xz.
+-r: Append files to an archive.
+-u: Update files in an archive.
+--exclude: Exclude files matching a pattern.
+
+
 Create archive
-$ tar -cvf
-$ tar -cvzf
+$ tar -cvf file/dir . (  ----. is current directory)
+$ tar -czvf archive_name.tar.gz /path/to/directory_or_files   --gzip compression.
+$
+
 
 List archive
 $ tar -tvf 
