@@ -1099,21 +1099,33 @@ commonly used options:
 
 
 Create archive
-$ tar -cvf file/dir . (  ----. is current directory)
 $ tar -czvf archive_name.tar.gz /path/to/directory_or_files   --gzip compression.
-$
-
+$ tar -cvf file/dir . (  ----. is current directory)
 
 List archive
 $ tar -tvf 
 
 Add new files/dirs to archive
 $ tar -rvf
+$ tar -rvf archive_name.tar /path/to/new_files
+
+Updating an archive:
+$ tar -uvf archive_name.tar /path/to/updated_files
+
+Excluding Files:
+$ tar --exclude='*.log' -cvf archive_name.tar /path/to/directory_or_files
 
 Extract an archive
 $ tar -xvf
+$ tar -xzvf archive_name.tar.gz
 
+$ tar -cjvf archive_name.tar.bz2 /path/to/directory_or_files    -- bzip2 compression
+$ tar -xjvf archive_name.tar.bz2      -- extracting bzip2 compressions
+
+=============================================================================================================================
 Downloading files using wget
+------------------------------
+
 
 
 =============================================================================================================================
