@@ -1503,10 +1503,10 @@ $ systemctl --type=service --state=active
 $ systemctl --type=service --state=inactive
 $ systemctl --type=service --state=failed
 
-$ sudo systemctl get-default: Show the default target (system state) that will be booted into.
-$ sudo systemctl set-default <target>: Set the default target to be booted into.
-$ sudo systemctl isolate <target>: Switch to a specific target (e.g., $ sudo systemctl isolate multi-user.target).
-$ sudo systemctl rescue: Boot into the rescue (single-user) mode.
+$ sudo systemctl get-default            -- Show the default target (system state) that will be booted into.
+$ sudo systemctl set-default <target>   -- Set the default target to be booted into.
+$ sudo systemctl isolate <target>       -- Switch to a specific target (e.g., $ sudo systemctl isolate multi-user.target).
+$ sudo systemctl rescue                 -- Boot into the rescue (single-user) mode.
 
 systemctl daemon-reload             -- Reload the systemd manager configuration.
 systemctl list-dependencies <unit>  -- Show dependencies of a unit.
@@ -1515,20 +1515,42 @@ systemctl suspend/hibernate/hybri--d-sleep: Suspend, hibernate, or put the syste
 
 
 Journald (Logging) Commands:
-journalctl: View the system log.
-journalctl -u <service>: View the log for a specific service.
-journalctl -b: View the log since the last boot.
-journalctl --since="2023-06-13" --until="2023-06-14": View the log for a specific date range.
-Other Useful Commands:
+journalctl                -- View the system log.
+journalctl -u <service>   -- View the log for a specific service.
+journalctl -b             -- View the log since the last boot.
+journalctl --since="2023-06-13" --until="2023-06-14"      -- View the log for a specific date range.
 
 --------------------------------------------------------------------------------------
+"/usr/lib/systemd/system"   or    /lib/systemd/system
+-- imporatnt part of systemd system and service manager. It contains unit files that define services, targets, sockets, devices and other system resources that systemd manages.
+-- includes, unit files such as targets, sockets, device, mount, swap, path, timer, slice or scope extensions.
+-- default location for system-wide unit files installed by packages. 
+-- viewing a unit file , 
+  eg.  cat /usr/lib/systemd/system/sshd.service
+
+  Overriding a unit file. 
+  -- creating the same unit file name but adding extension as '.d' then create a '.conf' file within that directory.
+  -- good for service and resouces management without having to modify the original unit file. 
+  eg. ------------------------------
+  sudo mkdir -p /etc/systemd/system/sshd.service.d
+
+  sudo nano /etc/systemd/system/sshd.service.d/override.conf
+
+  [Service]
+  Environment="FOO=bar"
+
+  sudo systemctl daemon-reload
+----------------------------------------
+
+"/run/systemd/system"
+--runtime unit files, which are used for temporary overrides.
 
 
-"/usr/lib/systemd/system"
-"/lib/systemd/system"
 "/etc/systemd/system"
-
-Creating a unit file
+-- used for custom, system-specific unit files and overrides. Usually used by Administrators and is not affected by package updates.
+-- example as above in usr/lib/systemd/system
+--------------------------------------------------------------------------------------------
+Creating a unit file          
 [Unit]
 Description=example
 After=
@@ -1543,9 +1565,11 @@ ExecStop=
 
 [Install]
 WantedBy=multi-user.target
-
+-----------------------------------------------------------------------------------------------------------------------------------
+===================================================================================================================================
 
 Shell Scripting.
+----------------
 comment
 
 she-bang, interpreter's path
