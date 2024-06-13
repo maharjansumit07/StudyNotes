@@ -581,6 +581,66 @@ $ sudo mount /dev/cdrom /mnt
 mount iso image
 $ sudo mount -o loop /path/to/image.iso /mnt
 
+------------------------------------------------------------------------------
+df: -- display information bout disk usages on all mounted filesystem. 
+-----
+$ df                -- display all mounted filesystem. 
+$ df -h             -- display all mounted filesystem with human readable format. 
+$ df -h /home       -- display size information about specified path 
+$ df -i             -- dipslay inode usage instead of block usage. 
+$ df -k             -- display in kilobyte.
+$ df -m             -- display in megabyte.
+$ df -BG            -- Display in Gigabypte. 'B'= block size.
+$ df -x tmpfs       -- display exluding specific types of filesystem.
+$ df -P             -- dipslay in POSIX format.
+$ df -T             -- display with File System Type.
+$ df -h -T nfs      -- display network file systems
+$ watch -n 5 df -h  -- display periodically for real time, every 5 mintues.
+
+
+Script to check disk usage and send alert.
+------------------------------------------
+#!/bin/bash
+
+THRESHOLD=90
+
+df -h | grep -vE '^Filesystem|tmpfs|cdrom' | awk '{ print $5 " " $1 }' | while read output;
+do
+  usep=$(echo $output | awk '{ print $1}' | cut -d'%' -f1  )
+  partition=$(echo $output | awk '{ print $2 }' )
+  if [ $usep -ge $THRESHOLD ]; then
+    echo "Warning: The partition \"$partition\" has used $usep% of total space"
+  fi
+done
+
+-------------------------------------------
+script to generate Disk Usage Report:
+-------------------------------------
+#!/bin/bash
+
+OUTPUT_FILE="/path/to/disk_usage_report.txt"
+
+echo "Disk Usage Report - $(date)" > $OUTPUT_FILE
+echo "=============================" >> $OUTPUT_FILE
+df -h >> $OUTPUT_FILE
+---------------------------------------
+---------------------------------------------------------------------------------
+
+du: -- used to estimate and summarize disk space usage of files and directories.
+---
+$ du 
+$ du /path/to/directory             -- to display disk usages of directory and its subdirectories.
+$ du -h /path/to/direcotry          -- to display human readable format.
+$ du -sh /path/to/direcotry         -- to display summary of disk usages.
+$ du -ah /path/to/direcotry         -- to display usages of all files and subdirectories.
+$ du -h --max-depth=1 /path/to/directory            -- to speciying the depth of direcotry.
+$ du -h /path/to/direcotry/file1    -- to display usages of specific file. 
+$ du -h --exclude="*.log" /path/to/directory        -- to exclude files or directories.
+$ du -h /path/to/directory1 /path/to/directory2     -- to display usages of multiple directories.
+
+$ du -h --max-depth=1 | sort -hr    -- to find large directories
+$ du -h /path/to/directory > disk_usage_report.txt    -- to monitor disk changes over time and save it to a file. 
+$ diff disk_usage_report.txt <(du -h /path/to/directory)  -- to compare the report.
 
 =========================================================================================================================================
 Process and resource monitoring:
@@ -1112,7 +1172,7 @@ commonly used options:
 
 Create archive
 $ tar -czvf archive_name.tar.gz /path/to/directory_or_files   --gzip compression.
-$ tar -cvf file/dir . (  ----. is current directory)
+$ tar -cvf file/dir/. (  ----. is current directory)
 
 List archive
 $ tar -tvf 
@@ -1205,6 +1265,7 @@ rsync:  for syncing file and directories between different locations.
 $ rsync -av /source/ /destination/          -- sync files from source to destination with '-a' as archive mode, and '-v' as verbose output.
 $ rsync -av --delete /source/ /destination/   -- to delete files in destination diredcotry that are not present in the soure location. 
 $ rsync -av -e ssh /source/ user@remote:/destination/     -- to sync over ssh
+$ rsync -av -e 'ssh -i /path/to/private_key' /path/to/local/directory/ user@192.168.1.100:/path/to/remote/directory/        -- to use ssh key for authentiaton.
 $ rsync -av --exclude 'pattern' /source/ /destination/    -- to exclude specific files and directories. 
 $ rsync -av --exclude '*.log' --include 'important.log' /source/ /destination/    -- to include and exclude as required. 
 $ rsync -av --bwlimit=1000 /source/ /destination/         -- to sync with specific bandwidth limit. 
@@ -1214,7 +1275,6 @@ $ rsync -avz /source/ /destination/                       -- compure data during
 $ rsync -av --progress /source/ /destination/             -- to show progress notification during transfer.
 $ rsync -av --link-dest=/previous_backup/ /source/ /current_backup/       -- to backup with hard links to save space. 
 $ rsync -av --log-file=/path/to/logfile /source/ /destination/         -- to log the details of the transfer file. 
-
 
 Automatic Backup with a script.
 -------------------------------
@@ -1227,6 +1287,17 @@ BWLIMIT=1000
 rsync -avz --delete --log-file=$LOGFILE --bwlimit=$BWLIMIT -e ssh $SOURCE $DESTINATION
 
 ----------------------------------
+
+#!/bin/bash
+SOURCE="/path/to/local/directory/"
+DESTINATION="user@192.168.1.100:/path/to/remote/directory/"
+SSH_PORT=2222
+PRIVATE_KEY="/path/to/private_key"
+BW_LIMIT=2000
+EXCLUDE_PATTERN="*.tmp"
+
+rsync -avz --delete --progress --exclude "$EXCLUDE_PATTERN" --bwlimit=$BW_LIMIT -e "ssh -p $SSH_PORT -i $PRIVATE_KEY" $SOURCE $DESTINATION
+-----------------------------------
 
 =============================================================================================================================
 OS/Kernel/Hardware info commands:
@@ -1304,18 +1375,45 @@ Operating System: Ubuntu 24.04 LTS
 Firmware Version: F.33
    Firmware Date: Wed 2023-10-04
     Firmware Age: 8month 3d
+----------------------------------------------------
 
-lscpu: 
+lscpu:  -- is used to diplay detail information about the CPU architecture. 
+-------
+$ lscpu
+$ lscpu -J                -- to output in JSON format.
+$ lscpu -p                -- to output in raw, parseable format.
 
+-----------------------------------------------------
 
+free  -- display information about the system's memory usages, including both physical and swap space. 
+---------
+$ free
+$ free -h             -- to display humam readable memory usage.
+$ free -m             -- output in megabytes
+$ free -g             -- output in Gigabytes.
+$ free -h -s 2        -- to display continuously in 2 seconds interval. 
+$ free -l             -- to dipslay low and high memory staticstics. 
+$ free --output=total,used,available        -- to display with only specific columns, 
+eg. 
+              total        used    available
+Mem:        16368464     1082468    14850920
+Swap:        2097148           0     2097148
 
-df - 
----
-du 
+Script for memory usages. 
+-------------------------
+#!/bin/bash
 
-free
+LOGFILE="/var/log/memory_usage.log"
 
-pwdx :
+while true; do
+    echo "$(date)" >> $LOGFILE
+    free -h >> $LOGFILE
+    echo "" >> $LOGFILE
+    sleep 5
+done
+---------------------------
+
+pwdx : to display the current working directory 
 ------
 eg. : 
 $ top           == to find out the PID
@@ -1366,13 +1464,11 @@ dmidecode        -- display detailed information about the system's hardware as 
 # dmidecode -t memory       -- display information about the system memory modules.
 
 =============================================================================================================================
-Managing Services
-Systemd
-Systemctl
-sudoers
-
+-----------------------------------------------------------------------------
 Managing services
-Systemd- systemd initializes the Linux system after boot process
+------------------
+Systemd - systemd initializes the Linux system after boot process
+----------
 - units and unit files
 - handles the targets - equivalent to runlevels -, which are a combination of units 			"working together" to produce a certain environment
 - units:
@@ -1380,7 +1476,8 @@ Systemd- systemd initializes the Linux system after boot process
 - unit files:
 	contains different parameters and data about the units - services, devices, mount points
 
-systemctl:
+systemctl: - primary commandline tool to interact with the systemd and service manager.
+-----------
 - unit:
 	systemctl list-units (--type=service --state=running)
 - unit-files:
@@ -1390,7 +1487,41 @@ systemctl:
 - Target:
 	get-default, isolate <target>, set-default
 
+$ sudo systemctl start/stop/restart <service>: Start, stop, or restart a service.
+$ sudo systemctl status <service>: Check the current status of a service.
+$ sudo systemctl enable/disable <service>: Enable or disable a service to start automatically at boot.
+$ sudo systemctl is-enabled <service>: Check if a service is enabled or not.
 
+$ systemctl list-units         -- List all active units.
+$ systemctl list-unit-files    -- List all available unit files.
+$ systemctl show <unit>        -- Display detailed information about a unit.
+$ systemctl cat <unit>         -- Display the contents of a unit file.
+$ systemctl --type = service / target / socket   -- to display specifi units.
+
+fileter services. 
+$ systemctl --type=service --state=active
+$ systemctl --type=service --state=inactive
+$ systemctl --type=service --state=failed
+
+$ sudo systemctl get-default: Show the default target (system state) that will be booted into.
+$ sudo systemctl set-default <target>: Set the default target to be booted into.
+$ sudo systemctl isolate <target>: Switch to a specific target (e.g., $ sudo systemctl isolate multi-user.target).
+$ sudo systemctl rescue: Boot into the rescue (single-user) mode.
+
+systemctl daemon-reload             -- Reload the systemd manager configuration.
+systemctl list-dependencies <unit>  -- Show dependencies of a unit.
+systemctl poweroff/reboot/halt      Power off, reboot, or halt the system.
+systemctl suspend/hibernate/hybri--d-sleep: Suspend, hibernate, or put the system in hybrid sleep mode.
+
+
+Journald (Logging) Commands:
+journalctl: View the system log.
+journalctl -u <service>: View the log for a specific service.
+journalctl -b: View the log since the last boot.
+journalctl --since="2023-06-13" --until="2023-06-14": View the log for a specific date range.
+Other Useful Commands:
+
+--------------------------------------------------------------------------------------
 
 
 "/usr/lib/systemd/system"
@@ -1428,7 +1559,7 @@ for
 
 .bashrc
 getent -- examples
-systemctl -type = service 
+
 diff file1 file2
 cmp file1 file2
 cu -l /dev/ttyUSB0 -s 9600      == Access console 
