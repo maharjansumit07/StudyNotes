@@ -1,0 +1,111 @@
+git practical
+
+. 𝐑𝐞𝐩𝐨𝐬𝐢𝐭𝐨𝐫𝐲 𝐁𝐚𝐬𝐢𝐜𝐬:
+- Clone a Repository:
+Command:
+git clone <repository_url>
+
+
+- Initialize a Repository:
+Command:
+git init
+
+
+2. 𝐖𝐨𝐫𝐤𝐢𝐧𝐠 𝐰𝐢𝐭𝐡 𝐁𝐫𝐚𝐧𝐜𝐡𝐞𝐬:
+- Create a New Branch:
+Command:
+git branch <branch_name>
+
+
+- Switch to a Branch:
+Command:
+git checkout <branch_name>
+
+
+- Create and Switch to a New Branch:
+Command:
+git checkout -b <new_branch_name>
+
+
+- List Branches:
+Command:
+git branch
+
+
+3. 𝐂𝐨𝐦𝐦𝐢𝐭𝐭𝐢𝐧𝐠 𝐂𝐡𝐚𝐧𝐠𝐞𝐬:
+- Stage Changes:
+Command:
+git add <file_name>
+
+
+- Stage All Changes:
+Command:
+git add .
+
+
+- Commit Changes:
+Command:
+git commit -m "Commit message"
+
+
+4. 𝐏𝐮𝐥𝐥𝐢𝐧𝐠 𝐚𝐧𝐝 𝐏𝐮𝐬𝐡𝐢𝐧𝐠:
+- Pull Changes from Remote:
+Command:
+git pull origin <branch_name>
+
+
+- Push Changes to Remote:
+Command:
+git push origin <branch_name>
+
+
+5. 𝐌𝐞𝐫𝐠𝐢𝐧𝐠 𝐂𝐡𝐚𝐧𝐠𝐞𝐬:
+- Merge Branch into Current Branch:
+Command:
+git merge <branch_name>
+
+
+6. 𝐖𝐨𝐫𝐤𝐢𝐧𝐠 𝐰𝐢𝐭𝐡 𝐑𝐞𝐦𝐨𝐭𝐞𝐬:
+- Add a Remote Repository:
+Command:
+git remote add <remote_name> <repository_url>
+
+
+- List Remote Repositories:
+Command:
+git remote -v
+
+
+7. 𝐇𝐚𝐧𝐝𝐥𝐢𝐧𝐠 𝐂𝐨𝐧𝐟𝐥𝐢𝐜𝐭𝐬:
+- Check for Conflicts:
+Command:
+git diff
+
+
+- Resolve Conflicts and Continue Merge:
+Command:
+git add <file_name>
+git merge --continue
+
+
+8. 𝐆𝐢𝐭𝐇𝐮𝐛 𝐀𝐜𝐭𝐢𝐨𝐧𝐬:
+- Workflow Syntax Checking:
+Command:
+git pull origin <branch_name>
+git push origin <branch_name>
+
+
+9. 𝐌𝐢𝐬𝐜𝐞𝐥𝐥𝐚𝐧𝐞𝐨𝐮𝐬:
+- Check Git Status:
+Command:
+git status
+
+
+- View Commit History:
+Command:
+git log
+
+
+- Ignore Files (Add to `.gitignore`):
+Command:
+echo "<file_name>" >> .gitignore
