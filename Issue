@@ -1,0 +1,12 @@
+
+git issue:
+------------
+
+- when you get the issue as :
+    On branch main
+Your branch and 'origin/main' have diverged,
+and have 1 and 1 different commits each, respectively.
+resolve:
+git fetch
+git merge origin/main
+-- save it then again commit changes and push. 
