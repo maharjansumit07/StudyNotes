@@ -14,6 +14,45 @@ Virtual Machines vs Containers
 
 ![VM vs Container](../Images/VM-vs-Container.jpg)
 
+Benefits of Containers.
+-----------------------
+ - lightweight, less time to boot and portable.
+ - fast in scaling. 
+ - independent of underlying infrastructure.
+ - favorable for microservice architecture. 
+ - source control friendly
+ - ideal for automation and CI/CD pipeline implementation.
+
+
+
+What is a Docker?
+- software framework for building, running, managing and shipping containers 
+- it is a client-server architecture. 
+
+Docker Daemon (dockerd) :
+- listens for API requests, and manges Docker objects such as images, conatiners, networks and volumes. 
+
+Docker Client:
+- tool to interact with docker daemon.
+
+Docker Desktop:
+- tool for MAC and Windows to run docker. 
+
+Docker Registries:
+- store for docker images.
+
+Docker Objects
+    - Images:  Read-only template with instructions for creating docker container
+    - Containers : Isolated environments run from image.
+    - DockerFile: file with set of instructions to tell container to what to do when it gets built. 
+            - we use this file to create image. 
+
+<h2>Docker Architecture</h2>
+![Docker Architecture](../Images/Docker_Architecture.png)
+
+------------------------------------------------------------------------------------------------------
+
+
 
 
 
