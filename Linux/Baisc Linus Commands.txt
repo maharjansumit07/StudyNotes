@@ -264,7 +264,7 @@ find /path/to/directory -mtime +8               --files modified more than 8 day
 find /path/to/directory -perm 777               --files with permissions 777 (rwxrwxrwx)
 find /path/to/directory -name "*.txt" -exec cp {} /backup/directory \;      --to execute command on found files.
 find /path/to/directory -type f -name "*.doc" -size +40M -mtime -7          --to find the file extensions with doc with size more than 40MB and modified in within last 7 days.
-
+find / -iname nginx         -- to find out the nignx named files and folders. -i == remove case sensitive.
 
 =========================================================================================================================
 File permissions:
@@ -714,6 +714,24 @@ Linux 6.8.0-31-generic (Practical) 	05/31/2024 	_x86_64_	(8 CPU)
 09:40:02 AM     all      0.98      0.00      0.60      0.02      0.00     98.40
 09:50:02 AM     all      1.66      0.00      0.78      0.08      0.00     97.47
 Average:        all      1.38      0.00      0.71      0.05      0.00     97.86
+
+
+watch:  -- commadn tool for monitoring monitoring and troubleshooting various system-related tasks. 
+------  -- it helps to quickly identify changes, detect issues, and stay informed about the state of the system.
+-n      -- interval in seconds
+-d      -- differneces
+-P      -- precise 
+
+$ watch -n 5 df -h          -- to display the disk usage in human readable format in every 5 seconds.
+$ watch -n 2 ls -l          -- to display the listing long format direcotry every 2 seconds
+$ watch -n 2 top            -- to display the running processs every 2 seconds.
+$ watch -n 1 netstat -antp  -- to display netstat command for active network connections every 1 second. 
+$ watch -d -n 2 uptime      -- to display the suystem's uptime every 2 seconds. 
+$ watch -d 'ls -l | fgrep joe'    -- to display the files owned by joe
+
+---------------------------------------------------------------------------------------------------------
+
+
 
 ====================================================================================================================
 
@@ -1514,11 +1532,15 @@ systemctl poweroff/reboot/halt      Power off, reboot, or halt the system.
 systemctl suspend/hibernate/hybri--d-sleep: Suspend, hibernate, or put the system in hybrid sleep mode.
 
 
-Journald (Logging) Commands:
+Journalctl (Logging) Commands:  query the systemd journal
 journalctl                -- View the system log.
-journalctl -u <service>   -- View the log for a specific service.
+journalctl -u <service>   -- View the log for a specific service.  -u == unit
 journalctl -b             -- View the log since the last boot.
-journalctl --since="2023-06-13" --until="2023-06-14"      -- View the log for a specific date range.
+journalctl --since="2023-06-13" // --until="2023-06-14"      -- View the log for a specific date range.
+journalctl --user         -- to view system and users login sesseion detail.  
+journalctl --system
+journalctl --user -g Linux  -- to display logs of the user.    -g = grep,
+journalctl -k -g usb // --system -g usb         -- to display kernel message logs with only matching names with usb.
 
 --------------------------------------------------------------------------------------
 "/usr/lib/systemd/system"   or    /lib/systemd/system
@@ -1567,7 +1589,17 @@ ExecStop=
 WantedBy=multi-user.target
 -----------------------------------------------------------------------------------------------------------------------------------
 ===================================================================================================================================
+.bashrc
+--------
 
+=================================================
+
+
+diff file1 file2
+cmp file1 file2
+
+==================================================
+cu -l /dev/ttyUSB0 -s 9600      == Access console 
 Shell Scripting.
 ----------------
 comment
@@ -1581,12 +1613,7 @@ case
 while
 for
 
-.bashrc
-getent -- examples
 
-diff file1 file2
-cmp file1 file2
-cu -l /dev/ttyUSB0 -s 9600      == Access console 
 
 
 
