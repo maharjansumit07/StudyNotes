@@ -12,7 +12,7 @@ Virtual Machines vs Containers
     - runs on top os host OS and virtulizes just the os instead of physical server. 
     - shares os kernel and just included apps with their libries and dependenci-es.
 
-![VM vs Container](Images/VM-vs-Container.jpg)
+![VM vs Container](../Images/VM-vs-Container.jpg)
 
 
 
