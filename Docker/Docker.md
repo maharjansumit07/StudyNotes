@@ -48,6 +48,7 @@ Docker Objects
             - we use this file to create image. 
 
 <h2>Docker Architecture</h2>
+
 ![Docker Architecture](../Images/Docker-Architecture.jpg)
 
 ------------------------------------------------------------------------------------------------------
