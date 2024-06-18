@@ -233,8 +233,6 @@ now to view the file, we will be looking from root to home directory going int u
 Linux_Practical:~$ ls /home/user/test/test1/test2/
 2ndtest.txt
 
-
-pwd:
 -----------------------------------------------------------------------------------------------------------------------------------
 External search within the file.
 grep => (Global Regular Expression Print) a command line tool for searching and filtering text. It is widely used in shell scirpts system administration tasks, and data processing workflows. 
@@ -265,6 +263,12 @@ find /path/to/directory -perm 777               --files with permissions 777 (rw
 find /path/to/directory -name "*.txt" -exec cp {} /backup/directory \;      --to execute command on found files.
 find /path/to/directory -type f -name "*.doc" -size +40M -mtime -7          --to find the file extensions with doc with size more than 40MB and modified in within last 7 days.
 find / -iname nginx         -- to find out the nignx named files and folders. -i == remove case sensitive.
+-----------------------------------------------------------------------------------------------------------------------------------
+Diff: 
+-----
+diff file1 file2
+cmp file1 file2
+
 
 =========================================================================================================================
 File permissions:
@@ -434,6 +438,7 @@ $ w
 20:49:48 up 3 min,  1 user,  load average: 0.16, 0.10, 0.03
 USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
 Linux    pts/1    -                20:46    3:32   0.04s  0.02s -bash
+
 
 -----------------------------------------------------------------------------------------------------------------------
 
@@ -1589,17 +1594,13 @@ ExecStop=
 WantedBy=multi-user.target
 -----------------------------------------------------------------------------------------------------------------------------------
 ===================================================================================================================================
-.bashrc
---------
+.bashrc     -- is a shell scprt that bash run whenever it is started interactively. 
+--------    -- is used to configure the shell environment, set up aliases, functions, and shell options. 
 
-=================================================
-
-
-diff file1 file2
-cmp file1 file2
+$ cat ~/.bashrc 
+we can set alias or set ennironment for the user.
 
 ==================================================
-cu -l /dev/ttyUSB0 -s 9600      == Access console 
 Shell Scripting.
 ----------------
 comment
@@ -1613,6 +1614,15 @@ case
 while
 for
 
+
+===================================================================================================================
+to connect to console.
+
+-- find out the connected device from /dev and it is usually ttyUSB0
+
+provide executive or provide full file perission. 
+chmod 777 ttyusb0
+cu -l /dev/ttyUSB0 -s 9600      == Access console 
 
 
 
