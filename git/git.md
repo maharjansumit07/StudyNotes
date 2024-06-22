@@ -23,7 +23,17 @@ Remote Repository
         │ git add
         │ git status
         ▼
-
+- 𝐠𝐢𝐭 𝐚𝐝𝐝: Stages a file or directory for commit.
+- 𝐠𝐢𝐭 𝐜𝐨𝐦𝐦𝐢𝐭: Commits staged changes to the local repository.
+- 𝐠𝐢𝐭 𝐥𝐨𝐠: Shows a history of all commits made to the local repository.
+- 𝐠𝐢𝐭 𝐜𝐡𝐞𝐜𝐤𝐨𝐮𝐭: Switches to a different branch or commit.
+- 𝐠𝐢𝐭 𝐛𝐫𝐚𝐧𝐜𝐡: Creates, lists, and deletes branches.
+- 𝐠𝐢𝐭 𝐟𝐞𝐭𝐜𝐡: Downloads all changes from the remote repository.
+- 𝐠𝐢𝐭 𝐩𝐮𝐥𝐥: Fetches changes from the remote repository and merges them into the local branch.
+- 𝐠𝐢𝐭 𝐩𝐮𝐬𝐡: Uploads committed changes to the remote repository.
+- 𝐠𝐢𝐭 𝐦𝐞𝐫𝐠𝐞: Merges two branches together.
+- 𝐠𝐢𝐭 𝐫𝐞𝐛𝐚𝐬𝐞: Replays commits from one branch onto another.
+- 𝐠𝐢𝐭 𝐫𝐞𝐯𝐞𝐫𝐭: Reverses the changes made in a commit.
 
 
 Repository Basics:
