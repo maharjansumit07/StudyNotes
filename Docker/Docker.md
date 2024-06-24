@@ -60,8 +60,7 @@ Docker Objects
 ----------------
 website: https://docs.docker.com/engine/install/ubuntu/
 ------------------------
-shell script on 
-[Link to Docker Install Script]'./dockerinstall.sh'
+shell script on [Link to Docker Install Script](dockerinstall.sh)
 when using script, make sure that the .sh file has executive permission. 
 $ sudo chmod -x dockerinstall.sh
 -------------------------
