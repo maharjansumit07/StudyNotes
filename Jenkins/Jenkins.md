@@ -11,5 +11,7 @@
 
 <h3> Install </h3>
 We can install by 2 ways, 
-1. 
-2. 
+
+1. [Jenkins-install.sh](Jenkins-install.sh)
+2. [Jenkins-through-war-file](Jenkins-through-war)
+
