@@ -1,0 +1,16 @@
+
+# use the blow command to install Genric Java Package (.war)
+# use this url to donwload the jenkins war file. https://get.jenkins.io/war-stable/2.452.2/jenkins.war
+
+$ wget https://get.jenkins.io/war-stable/2.452.2/jenkins.war
+
+$ ll
+$ java -jar jenkins.war
+
+# To view the java version and list out the java to choose and install. 
+$ sudo apt update
+
+$ sudo apt install -y openjdk-17-jre-headless
+-- this will run but when we close it , it will close. To sovle this, we have to configure on Systemd file for Jenkins. 
+-- we are using vagrant, thus we configure as below;
+

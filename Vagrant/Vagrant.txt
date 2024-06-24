@@ -88,5 +88,7 @@ Vagrant.configure("2") do |config|
   #   apt-get install -y apache2
   # SHELL
   config.vm.provision :shell, path: "installansible.sh" #, run: 'always'
+  # the above code will look for the installanisible.sh file at the same location in the Vagrantfile, and run command will make sure that it will run the .sh file everytime the vagrant box will be on. 
+  
 end
 
