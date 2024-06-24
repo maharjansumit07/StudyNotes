@@ -11,6 +11,29 @@ $ java -jar jenkins.war
 $ sudo apt update
 
 $ sudo apt install -y openjdk-17-jre-headless
--- this will run but when we close it , it will close. To sovle this, we have to configure on Systemd file for Jenkins. 
--- we are using vagrant, thus we configure as below;
+-- this will run but when we close it , it will close. To solve this, we have to configure on Systemd file for Jenkins. 
+-- we are using vagrant, thus we configure unit file as below;
 
+$ sudo vi /etc/systemd/system/jenkins.service
+------------------------------------------------------
+[Unit]
+Description=Unit file to server jenkins
+After=network.target
+
+[Service]
+User=vagrant
+Group=vagrant
+WorkingDirectory:/home/vagrant
+ExecStart=/usr/bin/java -jar jenkins.war
+
+[Install]
+WantedBy=multi-user.target
+
+---------------------------------------------------------
+for Execstart  we can find out the jaa location by simply;
+$ which java
+/usr/bin/java
+$
+
+Now restart the jenkins server, then it should run without waiting in cli command.
+=====================================================================

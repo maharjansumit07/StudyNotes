@@ -265,6 +265,7 @@ find /path/to/directory -type f -name "*.doc" -size +40M -mtime -7          --to
 find / -iname nginx         -- to find out the nignx named files and folders. -i == remove case sensitive.
 -----------------------------------------------------------------------------------------------------------------------------------
 Diff: 
+
 -----
 diff file1 file2
 cmp file1 file2

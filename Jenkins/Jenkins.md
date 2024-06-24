@@ -6,3 +6,10 @@
 - Integration with wide range of plugins.
 - workload distribution with master-slave architecture. 
 
+
+-------------------------------------------------------
+
+<h3> Install </h3>
+We can install by 2 ways, 
+1. 
+2. 

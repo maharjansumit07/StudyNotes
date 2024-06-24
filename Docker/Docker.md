@@ -54,13 +54,13 @@ Docker Objects
 
 ![Docker Architecture](../Images/Docker-Architecture.jpg)
 
-------------------------------------------------------------------------------------------------------
-
+-------------------------------------------------------------------------
+        
 <h3>Install Docker</h3>
 ----------------
 website: https://docs.docker.com/engine/install/ubuntu/
 ------------------------
-shell script on [a link](dockerinstall.sh)
+shell script on [Link to Docker Install Script](./dockerinstall.sh)
 when using script, make sure that the .sh file has executive permission. 
 $ sudo chmod -x dockerinstall.sh
 -------------------------
