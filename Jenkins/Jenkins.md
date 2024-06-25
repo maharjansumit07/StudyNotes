@@ -15,3 +15,26 @@ We can install by 2 ways,
 1. [Jenkins-install.sh](Jenkins-install.sh)
 2. [Jenkins-through-war-file](Jenkins-through-war)
 
+--------------------------------------------------------
+Click on Manage Jenkins >> Plugins
+![alt text](../Images/image.png)
+
+From here We download the needed plugins with our required plugin names. 
+>> Available Plugins   -- we search for the required plugins.
+>> installed plugins   -- to view the installed plugins. 
+
+For now we add plugins; 
+1. Git plugin
+2. Dependency plugin
+3. Node Js
+
+----------------------------------------------------
+
+Those plugins will be available in cli at /var/lib/jenkins/plugins
+-- if we need to copy the files extension of jpi, (which is custom or previous build plugins).
+![Jenkins plugins from cli](../Images/Jenkins-plugin-cli.png)
+
+-- We can get into Advance settings in plugin, and look for deploy plugin for gui manual install. 
+![Jenkins plugins from GUI](../Images/Jenkins-plugins-gui.png)
+
+---------------------------------------------------------
