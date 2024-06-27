@@ -1625,7 +1625,10 @@ provide executive or provide full file perission.
 chmod 777 ttyusb0
 cu -l /dev/ttyUSB0 -s 9600      == Access console 
 
-
+===================================================================================================================
+Server Hardening:
+follow CIS Benchmark: and choose the Linux Distro with version that you want for hardening your server or VM. 
+https://www.cisecurity.org/
 
 
 

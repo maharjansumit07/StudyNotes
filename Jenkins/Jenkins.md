@@ -20,8 +20,9 @@ Click on Manage Jenkins >> Plugins
 ![alt text](../Images/image.png)
 
 From here We download the needed plugins with our required plugin names. 
->> Available Plugins   -- we search for the required plugins.
->> installed plugins   -- to view the installed plugins. 
+> Available Plugins   -- we search for the required plugins.
+
+> installed plugins   -- to view the installed plugins. 
 
 For now we add plugins; 
 1. Git plugin
@@ -38,3 +39,4 @@ Those plugins will be available in cli at /var/lib/jenkins/plugins
 ![Jenkins plugins from GUI](../Images/Jenkins-plugins-gui.png)
 
 ---------------------------------------------------------
+
