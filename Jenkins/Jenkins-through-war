@@ -34,6 +34,7 @@ for Execstart  we can find out the jaa location by simply;
 $ which java
 /usr/bin/java
 $
+for user and group, we could create a new users as Jenkins and pass it here along with providing sudo access to new user created.
 
 Now restart the jenkins server, then it should run without waiting in cli command.
 =====================================================================
