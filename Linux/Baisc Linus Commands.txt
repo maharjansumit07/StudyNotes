@@ -253,7 +253,13 @@ mv ==> to more a file or rename files or directories.
 find out file location.
 ------------------------
 whereis ==> to locate the binary,source, and manual page files for a given command or program. 
+------
 
+locate: to searh for the location for the file name. 
+--------
+
+find:
+------
 find ==> used to search files and direcories based on various criteria, such as names, type, size, permissions and more.
 find /path/to/directory -name "filename.txt"
 find /path/to/directory -type f # for files,  - type d for direcotry.
