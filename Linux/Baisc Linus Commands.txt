@@ -238,6 +238,9 @@ External search within the file.
 grep => (Global Regular Expression Print) a command line tool for searching and filtering text. It is widely used in shell scirpts system administration tasks, and data processing workflows. 
 egrep  ==> (Extended GREP) is a more pattern matching than grep. as Grep uses basic expressionss , egrep uses extended regular expressions. It can be used to search more than 1 pattern search. 
 
+
+eg. 
+$ grep -v -E '^#' /etc/group | grep 'rocky'
 ------------------------------------------------------------------------------------------------------------------------------------
 
 copy files,
