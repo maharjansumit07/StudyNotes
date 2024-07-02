@@ -238,9 +238,6 @@ External search within the file.
 grep => (Global Regular Expression Print) a command line tool for searching and filtering text. It is widely used in shell scirpts system administration tasks, and data processing workflows. 
 egrep  ==> (Extended GREP) is a more pattern matching than grep. as Grep uses basic expressionss , egrep uses extended regular expressions. It can be used to search more than 1 pattern search. 
 
-
-eg. 
-$ grep -v -E '^#' /etc/group | grep 'rocky'
 ------------------------------------------------------------------------------------------------------------------------------------
 
 copy files,
@@ -1557,6 +1554,12 @@ journalctl --system
 journalctl --user -g Linux  -- to display logs of the user.    -g = grep,
 journalctl -k -g usb // --system -g usb         -- to display kernel message logs with only matching names with usb.
 
+
+service <service name> status /start/stop/restart/force-reload
+--------
+-- service runs a system V init secipt or systemd unit in as predicable environment as possible. 
+eg. 
+$ service ssh status
 --------------------------------------------------------------------------------------
 "/usr/lib/systemd/system"   or    /lib/systemd/system
 -- imporatnt part of systemd system and service manager. It contains unit files that define services, targets, sockets, devices and other system resources that systemd manages.
