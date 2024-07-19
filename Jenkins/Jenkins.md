@@ -40,3 +40,5 @@ Those plugins will be available in cli at /var/lib/jenkins/plugins
 ---------------------------------------------------------
 we can set up Graddle, Mavan and Nodejs, global properties > environmental variable,JDK Installation,
 ![JAVA_HOME at Environment Variable](/Images/Environment-variable-jenkins.png)
+
+
