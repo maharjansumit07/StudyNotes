@@ -1,0 +1,8 @@
+To delete all pods and services.
+kubectl delete all --all --all
+
+to generate a simple yaml format 
+ kubectl create deployment test --image=test -o yaml --dry-run
+
+ To view live connection of kubectl get all for scale up or down
+  watch -n1 kubectl get all
