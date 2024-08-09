@@ -1394,6 +1394,30 @@ Ubuntu
 Ubuntu 24.04 LTS
 24.04
 noble
+--------------------------------------------------------------------------------
+inxi: inxi shows system hardware, CPU, drivers, Xorg, Desktop, Kernel, compiler version(s), Processes, RAM usage, and a wide variety of other useful  informa‐
+       tion.
+
+Linux@Practical:~/My Files$ inxi -FxZ
+System:
+  Host: Linux Kernel: 6.8.0-39-generic arch: x86_64 bits: 64 compiler: gcc
+    v: 13.2.0
+  Desktop: GNOME v: 46.0 Distro: Ubuntu 24.04 LTS (Noble Numbat)
+Machine:
+  Type: Laptop System: HP product: HP Laptop 14s-dq2xxx v: N/A
+    serial: <superuser required>
+  Mobo: HP model: 87FD v: 57.26 serial: <superuser required> UEFI: AMI
+    v: F.33 date: 10/04/2023
+Battery:
+  ID-1: BAT0 charge: 40.2 Wh (100.0%) condition: 40.2/41.0 Wh (97.9%)
+    volts: 12.9 min: 11.4 model: HP Primary status: full
+CPU:
+  Info: quad core model: 11th Gen Intel Core i5-1135G7 bits: 64 type: MT MCP
+    arch: Tiger Lake rev: 1 cache: L1: 320 KiB L2: 5 MiB L3: 8 MiB
+  Speed (MHz): avg: 3359 high: 3808 min/max: 400/4200 cores: 1: 3581 2: 3090
+    3: 3083 4: 3800 5: 3565 6: 2861 7: 3085 8: 3808 bogomips: 38707
+
+
 
 ------------------------------------------------------------
 cat /etc/os-release :  -- standard file in linux that provides the information about the operating system.
