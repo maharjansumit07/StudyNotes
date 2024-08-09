@@ -282,6 +282,26 @@ whereis ==> to locate the binary,source, and manual page files for a given comma
 locate: to searh for the location for the file name. 
 --------
 
+tracker3:  It is designed to index files and provide fast and efficient searching capabilities for various types of content, such as documents, images, and emails.
+----------
+$ tracker3 search ansible
+Available tracker3 commands are:
+   daemon     Start, stop, restart and list daemons responsible for indexing content
+   endpoint   Create a SPARQL endpoint
+   export     Export data from a Tracker database
+   extract    Extract metadata from a file
+   help       Get help on how to use Tracker and any of these commands
+   import     Import data into a Tracker database
+   index      Index content using the Tracker filesystem miner
+   info       Retrieve all information available for a certain file
+   reset      Reset the index and configuration
+   search     Search for content by type or across all types
+   sparql     Query and update the index using SPARQL or search, list and tree the ontology
+   sql        Query the database at the lowest level using SQL
+   status     Provide status and statistics on the data indexed
+   tag        Add, remove and list tags
+
+
 find:
 ------
 find ==> used to search files and direcories based on various criteria, such as names, type, size, permissions and more.
